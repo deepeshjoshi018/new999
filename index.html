@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Professional Website</title>
+
+<!-- ===== CSS ===== -->
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        background: #0f172a;
+        color: #e5e7eb;
+        line-height: 1.6;
+    }
+
+    header {
+        background: linear-gradient(135deg, #020617, #020617);
+        padding: 25px 10%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+    }
+
+    header h1 {
+        color: #38bdf8;
+    }
+
+    nav a {
+        color: #e5e7eb;
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    nav a:hover {
+        color: #38bdf8;
+    }
+
+    .hero {
+        padding: 80px 10%;
+        text-align: center;
+    }
+
+    .hero h2 {
+        font-size: 40px;
+        color: #38bdf8;
+    }
+
+    .hero p {
+        margin-top: 15px;
+        font-size: 18px;
+        color: #cbd5f5;
+    }
+
+    .hero button {
+        margin-top: 30px;
+        padding: 12px 30px;
+        background: #38bdf8;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .hero button:hover {
+        background: #0ea5e9;
+    }
+
+    section {
+        padding: 60px 10%;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background: #020617;
+        padding: 25px;
+        border-radius: 15px;
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    .card h3 {
+        color: #38bdf8;
+        margin-bottom: 10px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #020617;
+        color: #94a3b8;
+    }
+
+    @media(max-width: 600px) {
+        header {
+            flex-direction: column;
+        }
+        nav {
+            margin-top: 10px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>MyWebsite</h1>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h2>Build Your Future with Code 🚀</h2>
+    <p>This is a modern website built using HTML, CSS and JavaScript in a single file.</p>
+    <button onclick="showMessage()">Get Started</button>
+</div>
+
+<section id="about">
+    <h2>About Me</h2>
+    <p>I am learning web development and building modern websites using clean and simple code.</p>
+</section>
+
+<section id="services">
+    <h2>My Services</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Web Design</h3>
+            <p>Clean and modern UI design for websites.</p>
+        </div>
+        <div class="card">
+            <h3>Frontend Dev</h3>
+            <p>HTML, CSS, JavaScript based frontend projects.</p>
+        </div>
+        <div class="card">
+            <h3>Hosting</h3>
+            <p>Free website hosting using GitHub & Netlify.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Email: example@email.com</p>
+</section>
+
+<footer>
+    © 2026 | Designed by You ❤️
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    function showMessage() {
+        alert("🎉 Welcome! Your website is working perfectly.");
+    }
+</script>
+
+</body>
+</html>

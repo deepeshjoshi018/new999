@@ -3,76 +3,808 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kali Linux Complete Guide</title>
+<title>Kali18 Security Hub</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <style>
-body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:#050505;
-    color:#e5e5e5;
+:root {
+    --primary: #00ff99;
+    --primary-dark: #00cc7a;
+    --bg-dark: #0a0a0a;
+    --bg-darker: #050505;
+    --bg-card: #111111;
+    --bg-card-hover: #1a1a1a;
+    --text-primary: #e5e5e5;
+    --text-secondary: #b0b0b0;
+    --border: #2a2a2a;
+    --shadow: rgba(0, 255, 153, 0.1);
+    --gradient: linear-gradient(135deg, #00ff99 0%, #00cc7a 100%);
 }
-header{
-    background:#000;
-    padding:20px;
-    text-align:center;
-    border-bottom:2px solid #00ff99;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-header h1{
-    color:#00ff99;
+
+body {
+    font-family: 'Segoe UI', 'Ubuntu', 'Cantarell', sans-serif;
+    background: var(--bg-darker);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
-nav{
-    background:#0a0a0a;
-    padding:10px;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+
+/* Header with modern design */
+header {
+    background: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 2px solid var(--primary);
+    box-shadow: 0 4px 20px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
 }
-nav button{
-    margin:5px;
-    padding:10px 15px;
-    background:#111;
-    color:#00ff99;
-    border:1px solid #00ff99;
-    cursor:pointer;
+
+header h1 {
+    color: var(--primary);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
-nav button:hover{
-    background:#00ff99;
-    color:#000;
+
+header p {
+    color: var(--text-secondary);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
-section{
-    padding:30px;
-    display:none;
+
+/* Modern Navigation */
+nav {
+    background: var(--bg-dark);
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 80px;
+    z-index: 999;
 }
-section h2{
-    color:#00ff99;
+
+nav button {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-card);
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
-.box{
-    background:#0d0d0d;
-    padding:20px;
-    margin-top:15px;
-    border-left:3px solid #00ff99;
+
+nav button:hover {
+    background: var(--gradient);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+    border-color: var(--primary);
 }
-img{
-    max-width:100%;
-    border-radius:10px;
-    margin-top:10px;
+
+nav button.active {
+    background: var(--gradient);
+    color: #000;
+    border-color: var(--primary);
 }
-a{
-    color:#00ff99;
+
+/* Hero + layout */
+.hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1rem;
 }
-footer{
-    text-align:center;
-    padding:15px;
-    background:#000;
-    margin-top:30px;
+
+.hero-left {
+    background: radial-gradient(120% 120% at 10% 10%, rgba(0, 255, 153, 0.08), transparent 40%), var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
-code{
-    display:block;
-    background:#000;
-    padding:10px;
-    margin:10px 0;
-    color:#00ff99;
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.9rem;
+    background: rgba(0, 255, 153, 0.1);
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.9rem;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.hero p {
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.4rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.btn.primary {
+    background: var(--gradient);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px var(--shadow);
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.stat-card {
+    padding: 1rem;
+    border-radius: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.stat-number {
+    font-size: 1.4rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.hero-right {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.glow {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(0,255,153,0.15) 0%, rgba(0,255,153,0) 65%);
+    top: -60px;
+    right: -60px;
+    pointer-events: none;
+}
+
+.auth-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: rgba(0, 255, 153, 0.06);
+    border: 1px solid var(--border);
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff6347;
+    box-shadow: 0 0 10px rgba(255,99,71,0.6);
+}
+
+.status-dot.online {
+    background: #27c93f;
+    box-shadow: 0 0 10px rgba(39,201,63,0.6);
+}
+
+.auth-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.profile-card {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    object-fit: cover;
+    background: #0f0f0f;
+}
+
+.profile-details small {
+    display: block;
+    color: var(--text-secondary);
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.7rem;
+    background: rgba(0,255,153,0.08);
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+}
+
+/* Search Bar */
+.search-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: none;
+}
+
+.search-container.active {
+    display: block;
+}
+
+.search-box {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 20px var(--shadow);
+}
+
+/* Sections */
+section {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+section h2 {
+    color: var(--primary);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+}
+
+/* Modern Card Design */
+.box {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border-left: 4px solid var(--primary);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.box:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px var(--shadow);
+    background: var(--bg-card-hover);
+}
+
+.box h3 {
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.box p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.box a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.box a:hover {
+    color: var(--primary-dark);
+    text-shadow: 0 0 10px var(--shadow);
+}
+
+/* Code Blocks */
+code {
+    display: block;
+    background: var(--bg-darker);
+    padding: 1rem;
+    margin: 1rem 0;
+    color: var(--primary);
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    position: relative;
+}
+
+code::before {
+    content: '$';
+    color: var(--primary-dark);
+    margin-right: 0.5rem;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.02);
+}
+
+/* Tool Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.tool-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow);
+    border-color: var(--primary);
+}
+
+.tool-card h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tool-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* Terminal Simulator */
+.terminal {
+    background: #000;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f56;
+}
+
+.terminal-dot:nth-child(2) {
+    background: #ffbd2e;
+}
+
+.terminal-dot:nth-child(3) {
+    background: #27c93f;
+}
+
+.terminal-window {
+    background: #020202;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    height: 260px;
+    overflow-y: auto;
+    color: var(--primary);
+}
+
+.terminal-line {
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+}
+
+.terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.terminal-prompt {
+    color: var(--primary-dark);
+    font-family: 'Courier New', monospace;
+}
+
+.terminal-input {
+    flex: 1;
+    background: #050505;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+}
+
+.terminal-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Command List */
+.command-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.command-item {
+    background: var(--bg-card);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
+    transition: all 0.3s ease;
+}
+
+.command-item:hover {
+    background: var(--bg-card-hover);
+    transform: translateX(5px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: var(--bg-dark);
+    margin-top: 3rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--gradient);
+    border: none;
+    color: #000;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1) rotate(180deg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        top: auto;
+        position: relative;
+    }
+    
+    nav button {
+        flex: 1;
+        min-width: 120px;
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+    
+    header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .theme-toggle {
+        bottom: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 1rem 0.5rem;
+    }
+    
+    .box {
+        padding: 1rem;
+    }
+    
+    nav button {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--border);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Copy Button */
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: var(--primary);
+    color: #000;
+}
+
+code {
+    position: relative;
+    padding-right: 3rem;
+}
+
+/* Page Loader */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(0,255,153,0.08), transparent 35%), #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(3px);
+    padding: 1rem;
+}
+
+.page-loader.hidden {
+    display: none;
+}
+
+.boot-terminal {
+    width: min(720px, 95vw);
+    background: #050505;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    padding: 1.25rem;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    color: var(--text-primary);
+}
+
+.boot-header {
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.boot-lines {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    height: 260px;
+    overflow: hidden;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    box-shadow: inset 0 0 0 1px rgba(0,255,153,0.05);
+}
+
+.boot-line {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+}
+
+.boot-line.ok::before {
+    content: "[ OK ] ";
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.boot-progress {
+    margin-top: 0.9rem;
+    height: 12px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.boot-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--gradient);
+    box-shadow: 0 0 12px var(--shadow);
+    transition: width 0.25s ease;
+}
+
+.boot-footer {
+    margin-top: 0.6rem;
+    text-align: right;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.feature {
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
 }
 </style>
 </head>
@@ -80,103 +812,896 @@ code{
 <body>
 
 <header>
-    <h1>🖤 Kali Linux Complete Guide</h1>
+    <h1>
+        <i class="fas fa-terminal"></i>
+        Kali18 Security Hub
+    </h1>
     <p>All Kali Linux Tools • Installation • Commands • Downloads</p>
 </header>
 
 <nav>
-    <button onclick="show('home')">Home</button>
-    <button onclick="show('install')">Install Kali</button>
-    <button onclick="show('tools')">Kali Tools</button>
-    <button onclick="show('terminal')">Terminal</button>
+    <button onclick="show('home')" class="active" id="nav-home">
+        <i class="fas fa-home"></i> Home
+    </button>
+    <button onclick="show('install')" id="nav-install">
+        <i class="fas fa-download"></i> Install Kali
+    </button>
+    <button onclick="show('tools')" id="nav-tools">
+        <i class="fas fa-tools"></i> Kali Tools
+    </button>
+    <button onclick="show('terminal')" id="nav-terminal">
+        <i class="fas fa-terminal"></i> Terminal
+    </button>
+    <button onclick="show('commands')" id="nav-commands">
+        <i class="fas fa-code"></i> Commands
+    </button>
+    <button onclick="show('profile')" id="nav-profile" style="display:none;">
+        <i class="fas fa-user"></i> Profile
+    </button>
+    <button onclick="toggleSearch()" id="nav-search">
+        <i class="fas fa-search"></i> Search
+    </button>
 </nav>
 
-<section id="home">
-    <h2>What is Kali Linux?</h2>
-    <div class="box">
-        <p>Kali Linux is a Debian-based Linux distribution used for penetration testing, ethical hacking and cybersecurity.</p>
-        <img src="https://www.kali.org/images/kali-dragon-icon.svg">
+<div class="search-container" id="searchContainer">
+    <input type="text" class="search-box" id="searchBox" placeholder="Search tools, commands, or topics..." onkeyup="performSearch()">
+</div>
+
+<div id="pageLoader" class="page-loader hidden">
+    <div class="boot-terminal">
+        <div class="boot-header" id="bootHeader">Kali Linux Secure Boot</div>
+        <div class="boot-lines" id="bootLines"></div>
+        <div class="boot-progress">
+            <div class="boot-progress-bar" id="bootProgressBar"></div>
+        </div>
+        <div class="boot-footer">kali18</div>
+    </div>
+</div>
+
+<section id="home" class="active">
+    <div class="hero">
+        <div class="hero-left">
+            <div class="hero-badge"><i class="fas fa-bolt"></i> Kali18 • Modern Linux UI</div>
+            <h1>Secure. Modern. Responsive.</h1>
+            <p>Kali18 brings a sleek, terminal-inspired experience with quick access to installs, tools, and commands—built to be fast, mobile-friendly, and focused on what matters.</p>
+            <div class="hero-actions">
+                <button class="btn primary" onclick="show('install')"><i class="fas fa-download"></i> Install Kali</button>
+                <button class="btn" onclick="show('tools')"><i class="fas fa-tools"></i> Explore Tools</button>
+                <button class="btn" onclick="googleSignIn()"><i class="fab fa-google"></i> Sign in with Google</button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number">600+</div>
+                    <div class="stat-label">Security Tools</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Linux Powered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Community Support</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right auth-card">
+            <div class="glow"></div>
+            <div class="auth-status">
+                <span class="status-dot" id="statusDot"></span>
+                <div>
+                    <strong id="authStatus">Signed out</strong>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;">Only Google sign-in is allowed.</div>
+                </div>
+            </div>
+            <h3><i class="fab fa-google"></i> Continue with Google</h3>
+            <p style="color: var(--text-secondary);">Click below to authenticate via Google and load your profile. No other login methods are enabled.</p>
+            <div id="googleSignInButton" style="width: 100%; display: flex; justify-content: center; margin: 1rem 0;"></div>
+            <div class="profile-card" id="profileCard" style="display:none;">
+                <img id="profileAvatar" class="avatar" alt="Profile">
+                <div class="profile-details">
+                    <strong id="profileName">User</strong>
+                    <small id="profileEmail">email</small>
+                    <div class="pill"><i class="fas fa-id-badge"></i> Google Account</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature">
+            <h3><i class="fas fa-lock"></i> Hardened Defaults</h3>
+            <p style="color: var(--text-secondary);">Secure-by-default configs with a clean, Linux-inspired UI to reduce distractions.</p>
+        </div>
+        <div class="feature">
+            <h3><i class="fas fa-mobile-alt"></i> Fully Responsive</h3>
+            <p style="color: var(--text-secondary);">Optimized for mobile and desktop with fluid grids and touch-friendly controls.</p>
+        </div>
+        <div class="feature">
+            <h3><i class="fas fa-microchip"></i> Fast Access</h3>
+            <p style="color: var(--text-secondary);">Jump straight to installs, commands, and tools without scrolling clutter.</p>
+        </div>
+        <div class="feature">
+            <h3><i class="fas fa-cloud-download-alt"></i> Smart Loading</h3>
+            <p style="color: var(--text-secondary);">New loading animation keeps users informed during sign-in or data fetch.</p>
+        </div>
     </div>
 </section>
 
 <section id="install">
-    <h2>Kali Linux Installation</h2>
+    <h2><i class="fas fa-download"></i> Kali Linux Installation</h2>
 
     <div class="box">
-        <h3>Install in VirtualBox</h3>
-        <p>1. Download Kali Linux VirtualBox image</p>
-        <a href="https://www.kali.org/get-kali/" target="_blank">Download Kali Linux</a>
+        <h3><i class="fas fa-cube"></i> Install in VirtualBox</h3>
+        <p>VirtualBox is the safest way to run Kali Linux without affecting your main system.</p>
+        <ol style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 2;">
+            <li>Download Kali Linux VirtualBox image from official website</li>
+            <li>Import the OVA file into VirtualBox</li>
+            <li>Start the virtual machine</li>
+            <li>Login with default credentials</li>
+        </ol>
+        <a href="https://www.kali.org/get-kali/" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Download Kali Linux
+        </a>
         <code>
+kali@kali:~$ Default Credentials
 Username: kali  
 Password: kali
         </code>
-        <img src="https://www.kali.org/images/kali-linux-vm.png">
+        <img src="https://www.kali.org/images/kali-linux-vm.png" alt="Kali Linux VM" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400/00ff99/000000?text=Kali+Linux+VM';">
     </div>
 
     <div class="box">
-        <h3>Install on Main System (Dual Boot)</h3>
-        <p>Use Rufus to create bootable USB and install.</p>
+        <h3><i class="fas fa-hdd"></i> Install on Main System (Dual Boot)</h3>
+        <p>For advanced users who want to install Kali Linux alongside their existing OS.</p>
+        <ol style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 2;">
+            <li>Download Kali Linux ISO image</li>
+            <li>Use Rufus (Windows) or dd (Linux/Mac) to create bootable USB</li>
+            <li>Boot from USB drive</li>
+            <li>Select "Graphical Install" from boot menu</li>
+            <li>Follow the installation wizard</li>
+        </ol>
         <code>
-Boot Menu → USB → Graphical Install
+Boot Menu → USB Drive → Graphical Install
         </code>
-        <img src="https://www.kali.org/images/installer/kali-installer.png">
+        <img src="https://www.kali.org/images/installer/kali-installer.png" alt="Kali Installer" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400/00ff99/000000?text=Kali+Installer';">
+    </div>
+
+    <div class="box">
+        <h3><i class="fas fa-cloud"></i> Install on Cloud</h3>
+        <p>Run Kali Linux on cloud platforms like AWS, Azure, or Google Cloud.</p>
+        <code>
+# AWS EC2 Instance
+# Select Kali Linux AMI from marketplace
+# Launch instance with appropriate security groups
+        </code>
     </div>
 </section>
 
 <section id="tools">
-    <h2>Top Kali Linux Tools</h2>
+    <h2><i class="fas fa-tools"></i> Top Kali Linux Tools</h2>
 
-    <div class="box">
-        <h3>Nmap</h3>
-        <p>Network scanning tool</p>
-        <code>sudo apt install nmap</code>
-        <code>nmap -A target_ip</code>
-    </div>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('Nmap')">
+            <h3><i class="fas fa-network-wired"></i> Nmap</h3>
+            <p>Network discovery and security auditing tool</p>
+            <code>sudo apt install nmap</code>
+            <code>nmap -A -sV target_ip</code>
+        </div>
 
-    <div class="box">
-        <h3>Metasploit</h3>
-        <p>Exploitation framework</p>
-        <code>sudo apt install metasploit-framework</code>
-        <code>msfconsole</code>
-    </div>
+        <div class="tool-card" onclick="trackToolUsage('Metasploit')">
+            <h3><i class="fas fa-shield-alt"></i> Metasploit</h3>
+            <p>Penetration testing framework</p>
+            <code>sudo apt install metasploit-framework</code>
+            <code>msfconsole</code>
+        </div>
 
-    <div class="box">
-        <h3>Hydra</h3>
-        <p>Password cracking tool</p>
-        <code>sudo apt install hydra</code>
-        <code>hydra -l user -P pass.txt target ssh</code>
-    </div>
+        <div class="tool-card" onclick="trackToolUsage('Hydra')">
+            <h3><i class="fas fa-key"></i> Hydra</h3>
+            <p>Password cracking tool</p>
+            <code>sudo apt install hydra</code>
+            <code>hydra -l user -P pass.txt target ssh</code>
+        </div>
 
-    <div class="box">
-        <h3>Wireshark</h3>
-        <p>Packet analyzer</p>
-        <code>sudo apt install wireshark</code>
-        <code>wireshark</code>
+        <div class="tool-card" onclick="trackToolUsage('Wireshark')">
+            <h3><i class="fas fa-eye"></i> Wireshark</h3>
+            <p>Network protocol analyzer</p>
+            <code>sudo apt install wireshark</code>
+            <code>wireshark</code>
+        </div>
+
+        <div class="tool-card" onclick="trackToolUsage('Burp Suite')">
+            <h3><i class="fas fa-bug"></i> Burp Suite</h3>
+            <p>Web application security testing</p>
+            <code>burpsuite</code>
+        </div>
+
+        <div class="tool-card" onclick="trackToolUsage('Aircrack-ng')">
+            <h3><i class="fas fa-wifi"></i> Aircrack-ng</h3>
+            <p>WiFi security auditing suite</p>
+            <code>sudo apt install aircrack-ng</code>
+            <code>aircrack-ng capture.cap</code>
+        </div>
+
+        <div class="tool-card" onclick="trackToolUsage('John the Ripper')">
+            <h3><i class="fas fa-search"></i> John the Ripper</h3>
+            <p>Password cracker</p>
+            <code>sudo apt install john</code>
+            <code>john --wordlist=rockyou.txt hash.txt</code>
+        </div>
+
+        <div class="tool-card" onclick="trackToolUsage('SQLMap')">
+            <h3><i class="fas fa-globe"></i> SQLMap</h3>
+            <p>Automated SQL injection tool</p>
+            <code>sudo apt install sqlmap</code>
+            <code>sqlmap -u "http://target.com/page?id=1"</code>
+        </div>
     </div>
 </section>
 
 <section id="terminal">
-    <h2>Basic Terminal Commands</h2>
+    <h2><i class="fas fa-terminal"></i> Terminal Simulator</h2>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span style="margin-left: 1rem; color: var(--text-secondary); font-size: 0.9rem;">kali@kali:~</span>
+        </div>
+        <div class="terminal-window" id="virtualTerminal">
+            <!-- command history will appear here -->
+        </div>
+        <div class="terminal-input-row">
+            <span class="terminal-prompt" id="terminalPrompt">kali@kali:~$</span>
+            <input id="terminalInput" class="terminal-input" type="text" autofocus placeholder="type a command, e.g. ls, pwd, ifconfig, sudo apt update..." onkeydown="handleTerminalKey(event)" />
+        </div>
+    </div>
 
     <div class="box">
-        <code>ls</code>
-        <code>cd foldername</code>
-        <code>pwd</code>
-        <code>sudo apt update</code>
-        <code>sudo apt upgrade</code>
+        <h3><i class="fas fa-info-circle"></i> Terminal Tips</h3>
+        <ul style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 2;">
+            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">Tab</code> for auto-completion</li>
+            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">Ctrl+C</code> to cancel commands</li>
+            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">Ctrl+L</code> to clear terminal</li>
+            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">history</code> to see command history</li>
+        </ul>
+    </div>
+</section>
+
+<section id="commands">
+    <h2><i class="fas fa-code"></i> Essential Commands</h2>
+
+    <div class="command-list">
+        <div class="command-item">
+            <h3><i class="fas fa-folder"></i> File Management</h3>
+            <code>ls -la</code>
+            <code>cd /path/to/directory</code>
+            <code>pwd</code>
+            <code>mkdir folder_name</code>
+            <code>rm -rf folder_name</code>
+        </div>
+
+        <div class="command-item">
+            <h3><i class="fas fa-box"></i> Package Management</h3>
+            <code>sudo apt update</code>
+            <code>sudo apt upgrade</code>
+            <code>sudo apt install package_name</code>
+            <code>sudo apt remove package_name</code>
+            <code>sudo apt search keyword</code>
+        </div>
+
+        <div class="command-item">
+            <h3><i class="fas fa-user-shield"></i> Permissions</h3>
+            <code>chmod +x file.sh</code>
+            <code>chmod 755 file</code>
+            <code>sudo chown user:group file</code>
+            <code>sudo su</code>
+        </div>
+
+        <div class="command-item">
+            <h3><i class="fas fa-network-wired"></i> Network Commands</h3>
+            <code>ifconfig</code>
+            <code>ip addr</code>
+            <code>ping google.com</code>
+            <code>netstat -tulpn</code>
+            <code>ss -tulpn</code>
+        </div>
+
+        <div class="command-item">
+            <h3><i class="fas fa-search"></i> Search & Find</h3>
+            <code>find / -name filename</code>
+            <code>grep -r "pattern" /path</code>
+            <code>locate filename</code>
+            <code>which command_name</code>
+        </div>
+
+        <div class="command-item">
+            <h3><i class="fas fa-cog"></i> System Info</h3>
+            <code>uname -a</code>
+            <code>df -h</code>
+            <code>free -h</code>
+            <code>top</code>
+            <code>htop</code>
+        </div>
+    </div>
+</section>
+
+<section id="profile">
+    <h2><i class="fas fa-user"></i> My Profile</h2>
+    
+    <div class="box" id="profileInfoBox" style="display:none;">
+        <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+            <img id="profileInfoAvatar" class="avatar" style="width: 80px; height: 80px;" alt="Profile">
+            <div>
+                <h3 id="profileInfoName" style="margin-bottom: 0.5rem;"></h3>
+                <p id="profileInfoEmail" style="color: var(--text-secondary); margin-bottom: 0.5rem;"></p>
+                <div class="pill"><i class="fas fa-id-badge"></i> Google Account</div>
+            </div>
+            <button class="btn" onclick="signOut()" style="margin-left: auto;">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </button>
+        </div>
+    </div>
+
+    <div class="box" id="profileNotLoggedIn">
+        <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+            <i class="fas fa-lock" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem; display: block;"></i>
+            Please sign in with Google from the Home section to view your profile and tool usage history.
+        </p>
+    </div>
+
+    <div class="box" id="toolHistoryBox" style="display:none;">
+        <h3><i class="fas fa-history"></i> Tool Usage History</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Tools you've accessed on Kali18:</p>
+        <div id="toolHistoryList" style="display: grid; gap: 0.75rem;">
+            <!-- Tool history items injected here -->
+        </div>
     </div>
 </section>
 
 <footer>
-    © 2026 | Kali Linux Guide | Made by You 🖤
+    <p>© 2026 | Kali Linux Guide | Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for Security Professionals</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+        <a href="https://www.kali.org" target="_blank" style="color: var(--primary); text-decoration: none;">
+            <i class="fas fa-external-link-alt"></i> Official Kali Linux Website
+        </a>
+    </p>
 </footer>
 
+<button class="theme-toggle" onclick="scrollToTop()" title="Scroll to Top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
 <script>
-function show(id){
-    document.querySelectorAll("section").forEach(s=>s.style.display="none");
-    document.getElementById(id).style.display="block";
+// Navigation
+function show(id) {
+    document.querySelectorAll("section").forEach(s => {
+        s.classList.remove("active");
+    });
+    const target = document.getElementById(id);
+    if (target) target.classList.add("active");
+    
+    // Update active nav button
+    document.querySelectorAll("nav button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+    const navBtn = document.getElementById("nav-" + id);
+    if (navBtn) navBtn.classList.add("active");
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-show('home');
+
+// Search functionality
+let searchActive = false;
+
+function toggleSearch() {
+    const container = document.getElementById("searchContainer");
+    const searchBox = document.getElementById("searchBox");
+    
+    if (searchActive) {
+        container.classList.remove("active");
+        searchBox.value = "";
+        searchActive = false;
+    } else {
+        container.classList.add("active");
+        searchBox.focus();
+        searchActive = true;
+    }
+}
+
+function performSearch() {
+    const query = document.getElementById("searchBox").value.toLowerCase();
+    const sections = document.querySelectorAll("section");
+    
+    sections.forEach(section => {
+        const content = section.textContent.toLowerCase();
+        if (content.includes(query) && query.length > 0) {
+            section.style.display = "block";
+            section.classList.add("active");
+            
+            // Highlight matches (simple implementation)
+            const regex = new RegExp(`(${query})`, 'gi');
+            // You can add more sophisticated highlighting here
+        }
+    });
+}
+
+// Auth + profile state
+let currentUser = null;
+let toolHistory = JSON.parse(localStorage.getItem('kali18_tool_history') || '[]');
+
+function showLoader(message = "Loading Kali18...") {
+    const loader = document.getElementById('pageLoader');
+    if (!loader) return;
+    const header = document.getElementById('bootHeader');
+    if (header) header.textContent = message;
+    loader.classList.remove('hidden');
+}
+
+function hideLoader() {
+    const loader = document.getElementById('pageLoader');
+    if (!loader) return;
+    loader.classList.add('hidden');
+}
+
+function renderProfile(profile) {
+    const card = document.getElementById('profileCard');
+    const name = document.getElementById('profileName');
+    const email = document.getElementById('profileEmail');
+    const avatar = document.getElementById('profileAvatar');
+    const statusDot = document.getElementById('statusDot');
+    const status = document.getElementById('authStatus');
+
+    if (card && name && email && avatar && statusDot && status) {
+        name.textContent = profile.name || 'User';
+        email.textContent = profile.email || '';
+        avatar.src = profile.picture || profile.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent((profile.name || 'U').charAt(0)) + '&background=00ff99&color=000&size=150';
+        avatar.onerror = function () {
+            this.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent((profile.name || 'U').charAt(0)) + '&background=00ff99&color=000&size=150';
+        };
+        status.textContent = "Signed in with Google";
+        statusDot.classList.add('online');
+        card.style.display = 'flex';
+    }
+}
+
+function updateProfileSection() {
+    const profileNav = document.getElementById('nav-profile');
+    const profileInfoBox = document.getElementById('profileInfoBox');
+    const profileNotLoggedIn = document.getElementById('profileNotLoggedIn');
+    const toolHistoryBox = document.getElementById('toolHistoryBox');
+
+    if (currentUser) {
+        if (profileNav) profileNav.style.display = 'flex';
+        if (profileInfoBox) {
+            document.getElementById('profileInfoName').textContent = currentUser.name || 'User';
+            document.getElementById('profileInfoEmail').textContent = currentUser.email || '';
+            const avatarImg = document.getElementById('profileInfoAvatar');
+            avatarImg.src = currentUser.picture || 'https://ui-avatars.com/api/?name=' + encodeURIComponent((currentUser.name || 'U').charAt(0)) + '&background=00ff99&color=000&size=150';
+            avatarImg.onerror = function () {
+                this.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent((currentUser.name || 'U').charAt(0)) + '&background=00ff99&color=000&size=150';
+            };
+            profileInfoBox.style.display = 'block';
+        }
+        if (profileNotLoggedIn) profileNotLoggedIn.style.display = 'none';
+        if (toolHistoryBox) {
+            toolHistoryBox.style.display = 'block';
+            renderToolHistory();
+        }
+    } else {
+        if (profileNav) profileNav.style.display = 'none';
+        if (profileInfoBox) profileInfoBox.style.display = 'none';
+        if (profileNotLoggedIn) profileNotLoggedIn.style.display = 'block';
+        if (toolHistoryBox) toolHistoryBox.style.display = 'none';
+    }
+}
+
+function renderToolHistory() {
+    const historyList = document.getElementById('toolHistoryList');
+    if (!historyList) return;
+
+    if (!toolHistory.length) {
+        historyList.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 1rem;">No tools used yet. Click on any tool card to build history.</p>';
+        return;
+    }
+
+    historyList.innerHTML = toolHistory.map(item => `
+        <div class="command-item" style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+                <strong style="color: var(--primary);">${item.tool}</strong>
+                <div style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">
+                    <i class="fas fa-clock"></i> ${new Date(item.timestamp).toLocaleString()}
+                </div>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                ${item.count}x
+            </div>
+        </div>
+    `).join('');
+}
+
+function trackToolUsage(toolName) {
+    if (!currentUser) {
+        alert('Please sign in with Google first to record your tool history.');
+        return;
+    }
+
+    const existingIndex = toolHistory.findIndex(t => t.tool === toolName);
+    if (existingIndex >= 0) {
+        toolHistory[existingIndex].count += 1;
+        toolHistory[existingIndex].timestamp = new Date().toISOString();
+    } else {
+        toolHistory.unshift({
+            tool: toolName,
+            count: 1,
+            timestamp: new Date().toISOString()
+        });
+    }
+    toolHistory = toolHistory.slice(0, 50);
+    localStorage.setItem('kali18_tool_history', JSON.stringify(toolHistory));
+    renderToolHistory();
+}
+
+function clearHistory() {
+    if (!currentUser) return;
+    if (!confirm('Clear your tool usage history?')) return;
+    toolHistory = [];
+    localStorage.removeItem('kali18_tool_history');
+    renderToolHistory();
+}
+
+function signOut() {
+    if (!currentUser) return;
+    if (!confirm('Sign out from this site?')) return;
+
+    const email = currentUser.email;
+    currentUser = null;
+    localStorage.removeItem('kali18_user');
+
+    const statusDot = document.getElementById('statusDot');
+    const status = document.getElementById('authStatus');
+    const card = document.getElementById('profileCard');
+    if (statusDot) statusDot.classList.remove('online');
+    if (status) status.textContent = 'Signed out';
+    if (card) card.style.display = 'none';
+
+    if (window.google && google.accounts && google.accounts.id && email) {
+        try {
+            google.accounts.id.revoke(email, () => {});
+        } catch (e) {
+            console.warn('Revoke failed', e);
+        }
+    }
+
+    updateProfileSection();
+}
+
+// Handle real Google Identity response
+function handleCredentialResponse(response) {
+    showLoader('Authenticating with Google...');
+    try {
+        const payload = JSON.parse(atob(response.credential.split('.')[1]));
+        currentUser = {
+            name: payload.name,
+            email: payload.email,
+            picture: payload.picture
+        };
+        localStorage.setItem('kali18_user', JSON.stringify(currentUser));
+        renderProfile(currentUser);
+        updateProfileSection();
+    } catch (e) {
+        console.error('Failed to parse Google token', e);
+        alert('Google sign-in failed. Please try again.');
+    } finally {
+        hideLoader();
+    }
+}
+
+function initializeGoogleSignIn() {
+    if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+        // Wait until the Google script loads
+        setTimeout(initializeGoogleSignIn, 200);
+        return;
+    }
+
+    // TODO: replace this with your real Google Client ID
+    // Example: 1234567890-abcdefg.apps.googleusercontent.com
+    const clientId = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+    if (clientId.startsWith('YOUR_GOOGLE_CLIENT_ID')) {
+        console.warn('Google Client ID not set. Update clientId in initializeGoogleSignIn() for real login.');
+        return;
+    }
+
+    google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleCredentialResponse,
+        auto_select: true,
+        cancel_on_tap_outside: true
+    });
+
+    const btnContainer = document.getElementById('googleSignInButton');
+    if (btnContainer) {
+        google.accounts.id.renderButton(btnContainer, {
+            theme: 'outline',
+            size: 'large',
+            width: 260,
+            text: 'signin_with',
+            shape: 'pill'
+        });
+    }
+}
+
+function googleSignIn() {
+    // Fallback: manually trigger Google account chooser if configured
+    if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.prompt();
+    } else {
+        alert('Google Sign-In is not fully configured.\nSet your Google Client ID in the code (initializeGoogleSignIn).');
+    }
+}
+
+// Kali-style boot animation loader
+const bootMessages = [
+    "Starting Kali Linux (kali18) ...",
+    "Loading kernel modules ...",
+    "Bringing up network interfaces ...",
+    "Mounting filesystems ...",
+    "Checking persistence layer ...",
+    "Starting SSH service ...",
+    "Starting NetworkManager ...",
+    "Starting Bluetooth service ...",
+    "Applying security policies ...",
+    "Initializing display manager ...",
+    "Preparing user session ...",
+    "Loading Kali tools index ...",
+    "Finalizing boot ..."
+];
+
+function startBootSequence() {
+    const linesEl = document.getElementById('bootLines');
+    const barEl = document.getElementById('bootProgressBar');
+    if (!linesEl || !barEl) {
+        hideLoader();
+        return;
+    }
+
+    linesEl.innerHTML = '';
+    barEl.style.width = '0%';
+    showLoader("Kali Linux Secure Boot");
+
+    let i = 0;
+    const total = bootMessages.length;
+
+    const step = () => {
+        if (i >= total) {
+            barEl.style.width = '100%';
+            setTimeout(() => {
+                hideLoader();
+            }, 350);
+            return;
+        }
+        const line = document.createElement('div');
+        line.className = 'boot-line ok';
+        line.textContent = bootMessages[i];
+        linesEl.appendChild(line);
+        linesEl.scrollTop = linesEl.scrollHeight;
+
+        const pct = Math.min(100, Math.round(((i + 1) / total) * 100));
+        barEl.style.width = pct + '%';
+        i += 1;
+        setTimeout(step, 140);
+    };
+
+    step();
+}
+
+// Virtual terminal implementation
+const terminalState = {
+    cwd: '~',
+    history: [],
+    historyIndex: -1,
+};
+
+const fakeFs = {
+    '~': ['Desktop', 'Documents', 'Downloads', 'Tools', 'notes.txt'],
+    '~/Tools': ['nmap', 'metasploit', 'hydra', 'wireshark'],
+};
+
+function appendTerminalLine(text = '', cls = '') {
+    const win = document.getElementById('virtualTerminal');
+    if (!win) return;
+    const div = document.createElement('div');
+    div.className = 'terminal-line' + (cls ? ' ' + cls : '');
+    div.textContent = text;
+    win.appendChild(div);
+    win.scrollTop = win.scrollHeight;
+}
+
+function printPromptedLine(command) {
+    appendTerminalLine(`kali@kali:${terminalState.cwd}$ ${command}`);
+}
+
+function handleCommand(cmdRaw) {
+    const input = cmdRaw.trim();
+    if (!input) return;
+
+    printPromptedLine(input);
+
+    const [command, ...args] = input.split(/\s+/);
+
+    switch (command) {
+        case 'clear':
+            const win = document.getElementById('virtualTerminal');
+            if (win) win.innerHTML = '';
+            break;
+        case 'help':
+            appendTerminalLine('Basic commands: ls, cd, pwd, whoami, uname -a, ifconfig, ip a, ping, history, clear, sudo apt update');
+            break;
+        case 'pwd':
+            appendTerminalLine(`/home/kali/${terminalState.cwd === '~' ? '' : terminalState.cwd.replace('~/', '')}`.replace(/\/$/, ''));
+            break;
+        case 'whoami':
+            appendTerminalLine('kali');
+            break;
+        case 'uname':
+            appendTerminalLine('Linux kali 6.6.0-kali5-amd64 #1 SMP Debian 6.6.9-1kali1 (2024-01-02) x86_64 GNU/Linux');
+            break;
+        case 'ls': {
+            const pathKey = terminalState.cwd;
+            const list = fakeFs[pathKey] || ['README.md', 'script.sh'];
+            appendTerminalLine(list.join('  '));
+            break;
+        }
+        case 'cd': {
+            const target = args[0] || '~';
+            if (target === '~' || target === '/home/kali') {
+                terminalState.cwd = '~';
+            } else if (target === 'Tools' || target === '~/Tools' || target === '/home/kali/Tools') {
+                terminalState.cwd = '~/Tools';
+            } else if (target === '..') {
+                terminalState.cwd = '~';
+            } else {
+                appendTerminalLine(`bash: cd: ${target}: No such file or directory`);
+            }
+            break;
+        }
+        case 'ifconfig':
+            appendTerminalLine('eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500');
+            appendTerminalLine('        inet 192.168.1.23  netmask 255.255.255.0  broadcast 192.168.1.255');
+            appendTerminalLine('wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500');
+            appendTerminalLine('        inet 10.0.0.5  netmask 255.255.255.0  broadcast 10.0.0.255');
+            break;
+        case 'ip':
+            appendTerminalLine('1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default');
+            appendTerminalLine('2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default');
+            break;
+        case 'ping':
+            appendTerminalLine(`PING ${args[0] || 'google.com'} (142.250.0.0) 56(84) bytes of data.`);
+            appendTerminalLine('64 bytes from 142.250.0.0: icmp_seq=1 ttl=115 time=32.5 ms');
+            appendTerminalLine('64 bytes from 142.250.0.0: icmp_seq=2 ttl=115 time=31.8 ms');
+            appendTerminalLine('--- ping statistics ---');
+            appendTerminalLine('2 packets transmitted, 2 received, 0% packet loss');
+            break;
+        case 'history':
+            terminalState.history.forEach((h, idx) => appendTerminalLine(`${idx + 1}  ${h}`));
+            break;
+        case 'sudo':
+            if (args[0] === 'apt' && args[1] === 'update') {
+                appendTerminalLine('Hit:1 http://http.kali.org/kali kali-rolling InRelease');
+                appendTerminalLine('Reading package lists... Done');
+                appendTerminalLine('Building dependency tree... Done');
+                appendTerminalLine('Reading state information... Done');
+                appendTerminalLine('All packages are up to date.');
+            } else {
+                appendTerminalLine('sudo: command simulated in Kali18 virtual terminal.');
+            }
+            break;
+        default:
+            appendTerminalLine(`bash: ${command}: command not found`);
+    }
+}
+
+function handleTerminalKey(e) {
+    const inputEl = document.getElementById('terminalInput');
+    if (!inputEl) return;
+
+    if (e.key === 'Enter') {
+        const value = inputEl.value;
+        if (value.trim()) {
+            terminalState.history.push(value);
+            terminalState.historyIndex = terminalState.history.length;
+            handleCommand(value);
+        }
+        inputEl.value = '';
+        e.preventDefault();
+    } else if (e.key === 'ArrowUp') {
+        if (terminalState.history.length && terminalState.historyIndex > 0) {
+            terminalState.historyIndex -= 1;
+            inputEl.value = terminalState.history[terminalState.historyIndex];
+            setTimeout(() => inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length), 0);
+        }
+        e.preventDefault();
+    } else if (e.key === 'ArrowDown') {
+        if (terminalState.historyIndex < terminalState.history.length - 1) {
+            terminalState.historyIndex += 1;
+            inputEl.value = terminalState.history[terminalState.historyIndex];
+        } else {
+            terminalState.historyIndex = terminalState.history.length;
+            inputEl.value = '';
+        }
+        e.preventDefault();
+    }
+}
+
+// Copy code functionality
+document.querySelectorAll('code').forEach(codeBlock => {
+    codeBlock.style.position = 'relative';
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+    copyBtn.onclick = () => {
+        const text = codeBlock.textContent.replace(/^\$/, '').trim();
+        navigator.clipboard.writeText(text).then(() => {
+            copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+            }, 2000);
+        });
+    };
+    codeBlock.appendChild(copyBtn);
+});
+
+// Scroll to top
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Show scroll to top button on scroll
+window.addEventListener('scroll', () => {
+    const scrollBtn = document.querySelector('.theme-toggle');
+    if (window.scrollY > 300) {
+        scrollBtn.style.display = 'flex';
+        scrollBtn.style.alignItems = 'center';
+        scrollBtn.style.justifyContent = 'center';
+    } else {
+        scrollBtn.style.display = 'flex';
+    }
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + K for search
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        toggleSearch();
+    }
+    
+    // Escape to close search
+    if (e.key === 'Escape' && searchActive) {
+        toggleSearch();
+    }
+});
+
+// Restore saved user and init Google + boot animation
+window.addEventListener('load', () => {
+    try {
+        const saved = localStorage.getItem('kali18_user');
+        if (saved) {
+            currentUser = JSON.parse(saved);
+            renderProfile(currentUser);
+            updateProfileSection();
+        }
+    } catch (e) {
+        console.warn('Could not restore saved user', e);
+    }
+    initializeGoogleSignIn();
+    // Seed virtual terminal with a few demo lines
+    appendTerminalLine('Kali18 virtual terminal ready. Type \"help\" for available commands.');
+    appendTerminalLine('');
+    startBootSequence();
+    show('home');
+});
 </script>
 
 </body>

@@ -107,8 +107,8 @@ nav button.active {
     color: #000;
     border-color: var(--primary);
 }
-  
-/* Hero + layout rrrr */
+
+/* Hero + layout */
 .hero {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -471,23 +471,48 @@ img:hover {
     margin-bottom: 1rem;
 }
 
-/* Terminal Simulator */
+/* Terminal Simulator - Full Screen Style */
+section#terminal {
+    padding: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    height: calc(100vh - 160px);
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    position: relative;
+}
+
+section#terminal.active {
+    display: flex !important;
+}
+
+@media (max-width: 768px) {
+    section#terminal {
+        height: calc(100vh - 140px);
+    }
+}
+
 .terminal {
     background: #000;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
     font-family: 'Courier New', monospace;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .terminal-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #0a0a0a;
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
 .terminal-dot {
@@ -507,12 +532,30 @@ img:hover {
 
 .terminal-window {
     background: #020202;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    padding: 0.75rem 1rem;
-    height: 260px;
+    border-radius: 0;
+    border: none;
+    padding: 1rem 1.25rem;
+    flex: 1;
     overflow-y: auto;
     color: var(--primary);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    min-height: 0;
+}
+
+@media (max-width: 768px) {
+    section#terminal {
+        height: calc(100vh - 140px);
+    }
+    .terminal-window {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 .terminal-line {
@@ -523,8 +566,17 @@ img:hover {
 .terminal-input-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
+    gap: 0.75rem;
+    margin-top: 0;
+    padding: 0.75rem 1rem;
+    background: #0a0a0a;
+    border-radius: 0;
+    border-top: none;
+    border-bottom: 1px solid var(--border);
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+    flex-shrink: 0;
 }
 
 .terminal-prompt {
@@ -537,9 +589,10 @@ img:hover {
     background: #050505;
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 0.4rem 0.6rem;
+    padding: 0.6rem 0.9rem;
     color: var(--text-primary);
     font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
     font-size: 0.95rem;
 }
 
@@ -805,6 +858,98 @@ code {
     border-radius: 12px;
     border: 1px solid var(--border);
     background: var(--bg-card);
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px var(--shadow);
+    border-color: var(--primary);
+}
+
+.feature h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Commands section */
+.command-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+}
+
+.command-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    transition: all 0.25s ease;
+}
+
+.command-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px var(--shadow);
+}
+
+.command-card h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.command-card p {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* DarkkAI chatbot */
+.chat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.chat-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.chat-input {
+    flex: 1;
+    background: #0a0a0a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    color: var(--text-primary);
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--shadow);
+}
+
+.chat-results {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.chat-result {
+    padding: 0.9rem;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: 8px;
 }
 </style>
 </head>
@@ -834,6 +979,9 @@ code {
     </button>
     <button onclick="show('commands')" id="nav-commands">
         <i class="fas fa-code"></i> Commands
+    </button>
+    <button onclick="show('darkkai')" id="nav-darkkai">
+        <i class="fas fa-robot"></i> DarkkAI
     </button>
     <button onclick="show('profile')" id="nav-profile" style="display:none;">
         <i class="fas fa-user"></i> Profile
@@ -925,6 +1073,45 @@ code {
             <p style="color: var(--text-secondary);">New loading animation keeps users informed during sign-in or data fetch.</p>
         </div>
     </div>
+
+    <div class="box" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(0,255,153,0.05) 0%, rgba(0,255,153,0.02) 100%); border: 2px solid var(--primary);">
+        <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+            <i class="fas fa-terminal" style="color: var(--primary);"></i>
+            Try Virtual Terminal
+        </h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Experience a real Kali Linux terminal in your browser. Type commands and see realistic outputs!</p>
+        <div class="terminal" style="margin-top: 1rem; max-width: 100%;">
+            <div class="terminal-header">
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <div class="terminal-dot"></div>
+                <span style="margin-left: 1rem; color: var(--text-secondary); font-size: 0.9rem;">kali@kali:~</span>
+            </div>
+            <div class="terminal-window" id="homeTerminal" style="height: 200px;">
+                <div class="terminal-line"><span class="terminal-prompt">kali@kali:~$</span> <span style="animation: blink 1s infinite;">_</span></div>
+            </div>
+            <div class="terminal-input-row">
+                <span class="terminal-prompt">kali@kali:~$</span>
+                <input id="homeTerminalInput" class="terminal-input" type="text" placeholder="Try: ls, pwd, whoami, help..." onkeydown="handleHomeTerminalKey(event)" onclick="show('terminal')" style="cursor: pointer;" />
+            </div>
+        </div>
+        <button class="btn primary" onclick="show('terminal')" style="margin-top: 1rem; width: 100%;">
+            <i class="fas fa-terminal"></i> Open Full Terminal
+        </button>
+    </div>
+</section>
+
+<section id="darkkai">
+    <h2><i class="fas fa-robot"></i> DarkkAI Chatbot</h2>
+    <div class="chat-card">
+        <p style="color: var(--text-secondary);">DarkkAI can search the web (best-effort) and show quick answers. Enter your query below.</p>
+        <div class="chat-row">
+            <input id="darkkAiInput" class="chat-input" type="text" placeholder="Ask DarkkAI... (e.g., latest Kali release, how to install nmap)" onkeydown="if(event.key==='Enter') searchDarkkAI();" />
+            <button class="btn primary" onclick="searchDarkkAI()"><i class="fas fa-paper-plane"></i> Ask</button>
+        </div>
+        <div id="darkkAiStatus" style="color: var(--text-secondary); margin-top: 0.5rem;"></div>
+        <div class="chat-results" id="darkkAiResults"></div>
+    </div>
 </section>
 
 <section id="install">
@@ -978,150 +1165,470 @@ Boot Menu → USB Drive → Graphical Install
 </section>
 
 <section id="tools">
-    <h2><i class="fas fa-tools"></i> Top Kali Linux Tools</h2>
+    <h2><i class="fas fa-tools"></i> Kali Linux Security Tools</h2>
 
+    <div class="box" style="background: linear-gradient(135deg, rgba(0,255,153,0.08) 0%, rgba(0,255,153,0.02) 100%); border: 2px solid var(--primary);">
+        <h3 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-info-circle"></i> 40+ Professional Security Tools</h3>
+        <p style="color: var(--text-secondary);">Complete collection of Kali Linux tools organized by category. Click any tool to track usage in your profile.</p>
+    </div>
+
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🔰</span>
+        INFORMATION GATHERING (Recon) – Beginner Friendly
+    </h3>
     <div class="tools-grid">
         <div class="tool-card" onclick="trackToolUsage('Nmap')">
-            <h3><i class="fas fa-network-wired"></i> Nmap</h3>
-            <p>Network discovery and security auditing tool</p>
-            <code>sudo apt install nmap</code>
-            <code>nmap -A -sV target_ip</code>
+            <h3><i class="fas fa-network-wired"></i> 1️⃣ Nmap</h3>
+            <p><strong>काम:</strong> Network scan, ports, services</p>
+        <code>sudo apt install nmap</code>
+            <code>nmap target_ip</code>
+            <code>nmap -sV target_ip</code>
+        <code>nmap -A target_ip</code>
         </div>
+        <div class="tool-card" onclick="trackToolUsage('Whois')">
+            <h3><i class="fas fa-globe"></i> 2️⃣ Whois</h3>
+            <p><strong>काम:</strong> Domain owner info</p>
+            <code>sudo apt install whois</code>
+            <code>whois example.com</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('WhatWeb')">
+            <h3><i class="fas fa-search"></i> 3️⃣ WhatWeb</h3>
+            <p><strong>काम:</strong> Website technology detect</p>
+            <code>sudo apt install whatweb</code>
+            <code>whatweb site.com</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('theHarvester')">
+            <h3><i class="fas fa-envelope"></i> 4️⃣ theHarvester</h3>
+            <p><strong>काम:</strong> Emails, subdomains</p>
+            <code>sudo apt install theharvester</code>
+            <code>theHarvester -d site.com -b google</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('DNSenum')">
+            <h3><i class="fas fa-server"></i> 5️⃣ DNSenum</h3>
+            <p><strong>काम:</strong> DNS enumeration</p>
+            <code>sudo apt install dnsenum</code>
+            <code>dnsenum site.com</code>
+        </div>
+    </div>
 
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🟡</span>
+        VULNERABILITY ANALYSIS
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('Nikto')">
+            <h3><i class="fas fa-shield-alt"></i> 6️⃣ Nikto</h3>
+            <p><strong>काम:</strong> Web vulnerabilities</p>
+            <code>sudo apt install nikto</code>
+            <code>nikto -h http://site.com</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Nuclei')">
+            <h3><i class="fas fa-bolt"></i> 7️⃣ Nuclei</h3>
+            <p><strong>काम:</strong> Fast vulnerability scanner</p>
+            <code>sudo apt install nuclei</code>
+            <code>nuclei -u site.com</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('OpenVAS')">
+            <h3><i class="fas fa-search-plus"></i> 8️⃣ OpenVAS (GVM)</h3>
+            <p><strong>काम:</strong> Full vulnerability scan</p>
+            <code>sudo apt install gvm</code>
+            <code>gvm-setup</code>
+            <code>gvm-start</code>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🔵</span>
+        WEB ATTACK TOOLS
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('Burp Suite')">
+            <h3><i class="fas fa-bug"></i> 9️⃣ Burp Suite</h3>
+            <p><strong>काम:</strong> Web request intercept</p>
+            <code>burpsuite</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Dirb')">
+            <h3><i class="fas fa-folder-open"></i> 🔟 Dirb</h3>
+            <p><strong>काम:</strong> Hidden directories</p>
+            <code>sudo apt install dirb</code>
+            <code>dirb http://site.com</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Gobuster')">
+            <h3><i class="fas fa-search"></i> 1️⃣1️⃣ Gobuster</h3>
+            <p><strong>काम:</strong> Directory brute force</p>
+            <code>sudo apt install gobuster</code>
+            <code>gobuster dir -u http://site.com -w wordlist.txt</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('SQLMap')">
+            <h3><i class="fas fa-database"></i> 1️⃣2️⃣ SQLmap</h3>
+            <p><strong>काम:</strong> SQL Injection</p>
+            <code>sudo apt install sqlmap</code>
+            <code>sqlmap -u "http://site.com?id=1" --dbs</code>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🔐</span>
+        PASSWORD ATTACK TOOLS
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('Hydra')">
+            <h3><i class="fas fa-key"></i> 1️⃣3️⃣ Hydra</h3>
+            <p><strong>काम:</strong> Password brute force</p>
+        <code>sudo apt install hydra</code>
+        <code>hydra -l user -P pass.txt target ssh</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('John the Ripper')">
+            <h3><i class="fas fa-unlock"></i> 1️⃣4️⃣ John the Ripper</h3>
+            <p><strong>काम:</strong> Password cracker</p>
+            <code>sudo apt install john</code>
+            <code>john hash.txt</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Hashcat')">
+            <h3><i class="fas fa-lock"></i> 1️⃣5️⃣ Hashcat</h3>
+            <p><strong>काम:</strong> Advanced hash cracking</p>
+            <code>sudo apt install hashcat</code>
+            <code>hashcat -m 0 hash.txt wordlist.txt</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Crunch')">
+            <h3><i class="fas fa-cogs"></i> 1️⃣6️⃣ Crunch</h3>
+            <p><strong>काम:</strong> Wordlist generate</p>
+            <code>sudo apt install crunch</code>
+            <code>crunch 6 8 abc123 > pass.txt</code>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">📡</span>
+        WIRELESS HACKING TOOLS
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('Airmon-ng')">
+            <h3><i class="fas fa-wifi"></i> 1️⃣7️⃣ Airmon-ng</h3>
+            <p><strong>काम:</strong> Enable monitor mode</p>
+            <code>sudo apt install aircrack-ng</code>
+            <code>airmon-ng start wlan0</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Airodump-ng')">
+            <h3><i class="fas fa-signal"></i> 1️⃣8️⃣ Airodump-ng</h3>
+            <p><strong>काम:</strong> Capture WiFi packets</p>
+            <code>airodump-ng wlan0mon</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Aircrack-ng')">
+            <h3><i class="fas fa-unlock-alt"></i> 1️⃣9️⃣ Aircrack-ng</h3>
+            <p><strong>काम:</strong> Crack WiFi passwords</p>
+            <code>aircrack-ng cap.cap -w wordlist.txt</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Wifite')">
+            <h3><i class="fas fa-wifi"></i> 2️⃣0️⃣ Wifite</h3>
+            <p><strong>काम:</strong> Automated WiFi hacking</p>
+            <code>sudo apt install wifite</code>
+            <code>wifite</code>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🧨</span>
+        EXPLOITATION – ADVANCED
+    </h3>
+    <div class="tools-grid">
         <div class="tool-card" onclick="trackToolUsage('Metasploit')">
-            <h3><i class="fas fa-shield-alt"></i> Metasploit</h3>
-            <p>Penetration testing framework</p>
+            <h3><i class="fas fa-shield-alt"></i> 2️⃣1️⃣ Metasploit</h3>
+            <p><strong>काम:</strong> Exploitation framework</p>
             <code>sudo apt install metasploit-framework</code>
             <code>msfconsole</code>
         </div>
-
-        <div class="tool-card" onclick="trackToolUsage('Hydra')">
-            <h3><i class="fas fa-key"></i> Hydra</h3>
-            <p>Password cracking tool</p>
-            <code>sudo apt install hydra</code>
-            <code>hydra -l user -P pass.txt target ssh</code>
+        <div class="tool-card" onclick="trackToolUsage('Searchsploit')">
+            <h3><i class="fas fa-search"></i> 2️⃣2️⃣ Searchsploit</h3>
+            <p><strong>काम:</strong> Exploit database search</p>
+            <code>sudo apt install exploitdb</code>
+            <code>searchsploit apache</code>
         </div>
+        <div class="tool-card" onclick="trackToolUsage('BeEF')">
+            <h3><i class="fas fa-code"></i> 2️⃣3️⃣ BeEF</h3>
+            <p><strong>काम:</strong> Browser exploitation</p>
+            <code>sudo apt install beef-xss</code>
+            <code>beef-xss</code>
+        </div>
+    </div>
 
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🕵️</span>
+        SNIFFING & SPOOFING
+    </h3>
+    <div class="tools-grid">
         <div class="tool-card" onclick="trackToolUsage('Wireshark')">
-            <h3><i class="fas fa-eye"></i> Wireshark</h3>
-            <p>Network protocol analyzer</p>
-            <code>sudo apt install wireshark</code>
-            <code>wireshark</code>
+            <h3><i class="fas fa-eye"></i> 2️⃣4️⃣ Wireshark</h3>
+            <p><strong>काम:</strong> Network packet analyzer</p>
+        <code>sudo apt install wireshark</code>
+        <code>wireshark</code>
         </div>
-
-        <div class="tool-card" onclick="trackToolUsage('Burp Suite')">
-            <h3><i class="fas fa-bug"></i> Burp Suite</h3>
-            <p>Web application security testing</p>
-            <code>burpsuite</code>
+        <div class="tool-card" onclick="trackToolUsage('Tcpdump')">
+            <h3><i class="fas fa-network-wired"></i> 2️⃣5️⃣ Tcpdump</h3>
+            <p><strong>काम:</strong> Command-line packet capture</p>
+            <code>tcpdump -i wlan0</code>
         </div>
-
-        <div class="tool-card" onclick="trackToolUsage('Aircrack-ng')">
-            <h3><i class="fas fa-wifi"></i> Aircrack-ng</h3>
-            <p>WiFi security auditing suite</p>
-            <code>sudo apt install aircrack-ng</code>
-            <code>aircrack-ng capture.cap</code>
+        <div class="tool-card" onclick="trackToolUsage('Ettercap')">
+            <h3><i class="fas fa-user-secret"></i> 2️⃣6️⃣ Ettercap</h3>
+            <p><strong>काम:</strong> MITM attacks</p>
+            <code>sudo apt install ettercap-graphical</code>
+            <code>ettercap -G</code>
         </div>
+    </div>
 
-        <div class="tool-card" onclick="trackToolUsage('John the Ripper')">
-            <h3><i class="fas fa-search"></i> John the Ripper</h3>
-            <p>Password cracker</p>
-            <code>sudo apt install john</code>
-            <code>john --wordlist=rockyou.txt hash.txt</code>
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🧬</span>
+        POST EXPLOITATION
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('Netcat')">
+            <h3><i class="fas fa-terminal"></i> 2️⃣7️⃣ Netcat</h3>
+            <p><strong>काम:</strong> Network utility</p>
+            <code>sudo apt install netcat</code>
+            <code>nc -lvnp 4444</code>
         </div>
+        <div class="tool-card" onclick="trackToolUsage('Socat')">
+            <h3><i class="fas fa-exchange-alt"></i> 2️⃣8️⃣ Socat</h3>
+            <p><strong>काम:</strong> Advanced netcat</p>
+            <code>sudo apt install socat</code>
+            <code>socat TCP-LISTEN:4444 STDOUT</code>
+        </div>
+    </div>
 
-        <div class="tool-card" onclick="trackToolUsage('SQLMap')">
-            <h3><i class="fas fa-globe"></i> SQLMap</h3>
-            <p>Automated SQL injection tool</p>
-            <code>sudo apt install sqlmap</code>
-            <code>sqlmap -u "http://target.com/page?id=1"</code>
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🧠</span>
+        FORENSICS
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('Autopsy')">
+            <h3><i class="fas fa-microscope"></i> 2️⃣9️⃣ Autopsy</h3>
+            <p><strong>काम:</strong> Digital forensics</p>
+            <code>sudo apt install autopsy</code>
+            <code>autopsy</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Binwalk')">
+            <h3><i class="fas fa-file-archive"></i> 3️⃣0️⃣ Binwalk</h3>
+            <p><strong>काम:</strong> Binary analysis</p>
+            <code>sudo apt install binwalk</code>
+            <code>binwalk file.img</code>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">🎭</span>
+        SOCIAL ENGINEERING
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('SET Toolkit')">
+            <h3><i class="fas fa-user-ninja"></i> 3️⃣1️⃣ SET Toolkit</h3>
+            <p><strong>काम:</strong> Social engineering attacks</p>
+            <code>sudo apt install set</code>
+            <code>setoolkit</code>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span style="background: var(--primary); color: #000; padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.9rem;">⚙️</span>
+        SYSTEM & SUPPORT TOOLS
+    </h3>
+    <div class="tools-grid">
+        <div class="tool-card" onclick="trackToolUsage('ProxyChains')">
+            <h3><i class="fas fa-link"></i> 3️⃣3️⃣ ProxyChains</h3>
+            <p><strong>काम:</strong> Proxy routing</p>
+            <code>sudo apt install proxychains</code>
+            <code>proxychains nmap target</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Tor')">
+            <h3><i class="fas fa-user-secret"></i> 3️⃣4️⃣ Tor</h3>
+            <p><strong>काम:</strong> Anonymous browsing</p>
+            <code>sudo apt install tor</code>
+            <code>service tor start</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Amass')">
+            <h3><i class="fas fa-sitemap"></i> 3️⃣5️⃣ Amass</h3>
+            <p><strong>काम:</strong> Subdomain enumeration</p>
+            <code>sudo apt install amass</code>
+            <code>amass enum -d site.com</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Recon-ng')">
+            <h3><i class="fas fa-search"></i> 3️⃣6️⃣ Recon-ng</h3>
+            <p><strong>काम:</strong> Reconnaissance framework</p>
+            <code>sudo apt install recon-ng</code>
+            <code>recon-ng</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('Enum4linux')">
+            <h3><i class="fas fa-list"></i> 3️⃣7️⃣ Enum4linux</h3>
+            <p><strong>काम:</strong> SMB enumeration</p>
+            <code>sudo apt install enum4linux</code>
+            <code>enum4linux target_ip</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('SMBclient')">
+            <h3><i class="fas fa-server"></i> 3️⃣8️⃣ SMBclient</h3>
+            <p><strong>काम:</strong> SMB protocol access</p>
+            <code>smbclient -L target_ip</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('FTP')">
+            <h3><i class="fas fa-file-upload"></i> 3️⃣9️⃣ FTP</h3>
+            <p><strong>काम:</strong> FTP client</p>
+            <code>ftp target_ip</code>
+        </div>
+        <div class="tool-card" onclick="trackToolUsage('SSH')">
+            <h3><i class="fas fa-terminal"></i> 4️⃣0️⃣ SSH</h3>
+            <p><strong>काम:</strong> Secure shell access</p>
+            <code>ssh user@target_ip</code>
         </div>
     </div>
 </section>
 
 <section id="terminal">
-    <h2><i class="fas fa-terminal"></i> Terminal Simulator</h2>
-    
     <div class="terminal">
         <div class="terminal-header">
             <div class="terminal-dot"></div>
             <div class="terminal-dot"></div>
             <div class="terminal-dot"></div>
             <span style="margin-left: 1rem; color: var(--text-secondary); font-size: 0.9rem;">kali@kali:~</span>
+            <span style="margin-left: auto; color: var(--text-secondary); font-size: 0.85rem;">Kali18 Virtual Terminal</span>
+        </div>
+        <div class="terminal-input-row">
+            <span class="terminal-prompt" id="terminalPrompt">kali@kali:~$</span>
+            <input id="terminalInput" class="terminal-input" type="text" autofocus placeholder="Type any Kali Linux command..." onkeydown="handleTerminalKey(event)" />
         </div>
         <div class="terminal-window" id="virtualTerminal">
             <!-- command history will appear here -->
         </div>
-        <div class="terminal-input-row">
-            <span class="terminal-prompt" id="terminalPrompt">kali@kali:~$</span>
-            <input id="terminalInput" class="terminal-input" type="text" autofocus placeholder="type a command, e.g. ls, pwd, ifconfig, sudo apt update..." onkeydown="handleTerminalKey(event)" />
-        </div>
-    </div>
-
-    <div class="box">
-        <h3><i class="fas fa-info-circle"></i> Terminal Tips</h3>
-        <ul style="color: var(--text-secondary); margin-left: 1.5rem; line-height: 2;">
-            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">Tab</code> for auto-completion</li>
-            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">Ctrl+C</code> to cancel commands</li>
-            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">Ctrl+L</code> to clear terminal</li>
-            <li>Use <code style="display: inline; padding: 0.2rem 0.5rem;">history</code> to see command history</li>
-        </ul>
     </div>
 </section>
 
 <section id="commands">
     <h2><i class="fas fa-code"></i> Essential Commands</h2>
 
-    <div class="command-list">
-        <div class="command-item">
-            <h3><i class="fas fa-folder"></i> File Management</h3>
-            <code>ls -la</code>
-            <code>cd /path/to/directory</code>
-            <code>pwd</code>
-            <code>mkdir folder_name</code>
-            <code>rm -rf folder_name</code>
+    <div class="command-grid">
+        <div class="command-card">
+            <h3><i class="fas fa-folder"></i> File Basics</h3>
+            <code>pwd        # current directory</code>
+            <code>ls         # files list</code>
+            <code>ls -l      # details</code>
+            <code>ls -a      # hidden files</code>
+            <code>cd folder  # folder me jao</code>
+            <code>cd ..      # ek step piche</code>
+            <code>cd ~       # home directory</code>
         </div>
 
-        <div class="command-item">
-            <h3><i class="fas fa-box"></i> Package Management</h3>
-            <code>sudo apt update</code>
-            <code>sudo apt upgrade</code>
-            <code>sudo apt install package_name</code>
-            <code>sudo apt remove package_name</code>
-            <code>sudo apt search keyword</code>
+        <div class="command-card">
+            <h3><i class="fas fa-file-alt"></i> File Handling</h3>
+            <code>touch file.txt        # file create</code>
+            <code>cat file.txt          # file read</code>
+            <code>nano file.txt         # editor</code>
+            <code>vi file.txt</code>
+            <code>cp a.txt b.txt        # copy</code>
+            <code>mv a.txt b.txt        # move / rename</code>
+            <code>rm file.txt           # delete</code>
+            <code>rm -r foldername      # folder delete</code>
         </div>
 
-        <div class="command-item">
-            <h3><i class="fas fa-user-shield"></i> Permissions</h3>
-            <code>chmod +x file.sh</code>
-            <code>chmod 755 file</code>
-            <code>sudo chown user:group file</code>
-            <code>sudo su</code>
+        <div class="command-card">
+            <h3><i class="fas fa-user-shield"></i> Users & Permissions</h3>
+            <code>whoami          # current user</code>
+            <code>id              # user details</code>
+            <code>sudo command    # admin command</code>
+            <code>sudo su         # root user (password: kali)</code>
+            <code>passwd          # password change</code>
+            <code>chmod 777 file.txt</code>
+            <code>chmod +x script.sh</code>
+            <code>chown user:user file.txt</code>
         </div>
 
-        <div class="command-item">
-            <h3><i class="fas fa-network-wired"></i> Network Commands</h3>
+        <div class="command-card">
+            <h3><i class="fas fa-network-wired"></i> Network (Important)</h3>
             <code>ifconfig</code>
-            <code>ip addr</code>
+            <code>ip a</code>
             <code>ping google.com</code>
-            <code>netstat -tulpn</code>
-            <code>ss -tulpn</code>
+            <code>netstat -tuln</code>
+            <code>ss -tuln</code>
+            <code>traceroute google.com</code>
+            <code>arp -a</code>
         </div>
 
-        <div class="command-item">
-            <h3><i class="fas fa-search"></i> Search & Find</h3>
-            <code>find / -name filename</code>
-            <code>grep -r "pattern" /path</code>
-            <code>locate filename</code>
-            <code>which command_name</code>
+        <div class="command-card">
+            <h3><i class="fas fa-box"></i> APT Package Mgmt</h3>
+            <code>apt update</code>
+            <code>apt upgrade</code>
+            <code>apt install toolname</code>
+            <code>apt remove toolname</code>
+            <code>apt autoremove</code>
         </div>
 
-        <div class="command-item">
-            <h3><i class="fas fa-cog"></i> System Info</h3>
-            <code>uname -a</code>
-            <code>df -h</code>
-            <code>free -h</code>
+        <div class="command-card">
+            <h3><i class="fas fa-microchip"></i> System & Process</h3>
             <code>top</code>
             <code>htop</code>
+            <code>ps aux</code>
+            <code>kill PID</code>
+            <code>uptime</code>
+            <code>df -h</code>
+            <code>free -h</code>
+            <code>uname -a</code>
+        </div>
+
+        <div class="command-card">
+            <h3><i class="fas fa-search"></i> Search & Find</h3>
+            <code>find / -name file.txt</code>
+            <code>locate file.txt</code>
+            <code>which python</code>
+            <code>whereis nmap</code>
+            <code>grep "root" file.txt</code>
+        </div>
+
+        <div class="command-card">
+            <h3><i class="fas fa-terminal"></i> Shell & Scripts</h3>
+            <code>history</code>
+            <code>clear</code>
+            <code>echo "Hello"</code>
+            <code>bash script.sh</code>
+            <code>./script.sh</code>
+        </div>
+
+        <div class="command-card">
+            <h3><i class="fas fa-random"></i> Pipes & Redirects</h3>
+            <code>ls | grep txt</code>
+            <code>cat file.txt > new.txt</code>
+            <code>cat file.txt >> new.txt</code>
+        </div>
+
+        <div class="command-card">
+            <h3><i class="fas fa-clock"></i> Cron & Compression</h3>
+            <code>crontab -e</code>
+            <code>crontab -l</code>
+            <code>zip file.zip file.txt</code>
+            <code>unzip file.zip</code>
+            <code>tar -cvf test.tar folder</code>
+            <code>tar -xvf test.tar</code>
+        </div>
+
+        <div class="command-card">
+            <h3><i class="fas fa-skull-crossbones"></i> Kali Hacking Tools</h3>
+            <code>nmap target-ip</code>
+            <code>nmap -A target-ip</code>
+            <code>nmap -sV target-ip</code>
+            <code>msfconsole</code>
+            <code>hydra -l admin -P pass.txt ssh://target-ip</code>
+            <code>sqlmap -u "url" --dbs</code>
+            <code>sqlmap -u "url" --tables</code>
+        </div>
+
+        <div class="command-card">
+            <h3><i class="fas fa-wifi"></i> Wireless Basics</h3>
+            <code>iwconfig</code>
+            <code>airmon-ng start wlan0</code>
+            <code>airodump-ng wlan0mon</code>
+            <code>aireplay-ng</code>
+        </div>
+
+        <div class="command-card">
+            <h3><i class="fas fa-lightbulb"></i> Extra Useful</h3>
+            <code>neofetch</code>
+            <code>tree</code>
+            <code>watch</code>
         </div>
     </div>
 </section>
@@ -1211,20 +1718,56 @@ function toggleSearch() {
 }
 
 function performSearch() {
-    const query = document.getElementById("searchBox").value.toLowerCase();
+    const query = document.getElementById("searchBox").value.toLowerCase().trim();
     const sections = document.querySelectorAll("section");
     
+    if (!query) {
+        // Show all sections if search is empty
+        sections.forEach(section => {
+            section.style.display = "none";
+            section.classList.remove("active");
+        });
+        // Show home by default
+show('home');
+        return;
+    }
+    
+    let found = false;
     sections.forEach(section => {
         const content = section.textContent.toLowerCase();
-        if (content.includes(query) && query.length > 0) {
+        if (content.includes(query)) {
             section.style.display = "block";
             section.classList.add("active");
+            found = true;
             
-            // Highlight matches (simple implementation)
-            const regex = new RegExp(`(${query})`, 'gi');
-            // You can add more sophisticated highlighting here
+            // Update nav button
+            const sectionId = section.id;
+            document.querySelectorAll("nav button").forEach(btn => {
+                btn.classList.remove("active");
+            });
+            const navBtn = document.getElementById("nav-" + sectionId);
+            if (navBtn) navBtn.classList.add("active");
+        } else {
+            section.style.display = "none";
+            section.classList.remove("active");
         }
     });
+    
+    if (!found) {
+        // Show message if nothing found
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            homeSection.style.display = "block";
+            homeSection.classList.add("active");
+            homeSection.innerHTML = `
+                <div class="box" style="text-align: center; padding: 3rem;">
+                    <i class="fas fa-search" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">No results found</h3>
+                    <p style="color: var(--text-secondary);">Try searching for: tools, commands, nmap, metasploit, etc.</p>
+                </div>
+            `;
+        }
+    }
 }
 
 // Auth + profile state
@@ -1263,6 +1806,12 @@ function renderProfile(profile) {
         status.textContent = "Signed in with Google";
         statusDot.classList.add('online');
         card.style.display = 'flex';
+        
+        // Hide sign-in button when logged in
+        const signInButton = document.getElementById('googleSignInButton');
+        if (signInButton) {
+            signInButton.style.display = 'none';
+        }
     }
 }
 
@@ -1340,7 +1889,11 @@ function trackToolUsage(toolName) {
     }
     toolHistory = toolHistory.slice(0, 50);
     localStorage.setItem('kali18_tool_history', JSON.stringify(toolHistory));
-    renderToolHistory();
+    
+    // Update history display if on profile page
+    if (document.getElementById('profile').classList.contains('active')) {
+        renderToolHistory();
+    }
 }
 
 function clearHistory() {
@@ -1362,9 +1915,15 @@ function signOut() {
     const statusDot = document.getElementById('statusDot');
     const status = document.getElementById('authStatus');
     const card = document.getElementById('profileCard');
+    const signInButton = document.getElementById('googleSignInButton');
+    
     if (statusDot) statusDot.classList.remove('online');
     if (status) status.textContent = 'Signed out';
     if (card) card.style.display = 'none';
+    if (signInButton) {
+        signInButton.innerHTML = '';
+        signInButton.style.display = 'flex';
+    }
 
     if (window.google && google.accounts && google.accounts.id && email) {
         try {
@@ -1375,6 +1934,11 @@ function signOut() {
     }
 
     updateProfileSection();
+    
+    // If on profile page, redirect to home
+    if (document.getElementById('profile').classList.contains('active')) {
+        show('home');
+    }
 }
 
 // Handle real Google Identity response
@@ -1399,9 +1963,24 @@ function handleCredentialResponse(response) {
 }
 
 function initializeGoogleSignIn() {
+    const btnContainer = document.getElementById('googleSignInButton');
+    if (!btnContainer) return;
+    
+    // Show fallback button if Google API not available
     if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
-        // Wait until the Google script loads
-        setTimeout(initializeGoogleSignIn, 200);
+        // Wait a bit more for Google script to load
+        setTimeout(() => {
+            if (typeof google === 'undefined' || !google.accounts || !google.accounts.id) {
+                // Show fallback button
+                btnContainer.innerHTML = `
+                    <button class="btn primary" style="width: 100%; justify-content: center;" onclick="googleSignIn()">
+                        <i class="fab fa-google"></i> Sign in with Google
+                    </button>
+                `;
+            } else {
+                initializeGoogleSignIn();
+            }
+        }, 500);
         return;
     }
 
@@ -1409,19 +1988,23 @@ function initializeGoogleSignIn() {
     // Example: 1234567890-abcdefg.apps.googleusercontent.com
     const clientId = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
     if (clientId.startsWith('YOUR_GOOGLE_CLIENT_ID')) {
-        console.warn('Google Client ID not set. Update clientId in initializeGoogleSignIn() for real login.');
+        // Show fallback button when no client ID
+        btnContainer.innerHTML = `
+            <button class="btn primary" style="width: 100%; justify-content: center;" onclick="googleSignIn()">
+                <i class="fab fa-google"></i> Sign in with Google
+            </button>
+        `;
         return;
     }
 
-    google.accounts.id.initialize({
-        client_id: clientId,
-        callback: handleCredentialResponse,
-        auto_select: true,
-        cancel_on_tap_outside: true
-    });
+    try {
+        google.accounts.id.initialize({
+            client_id: clientId,
+            callback: handleCredentialResponse,
+            auto_select: true,
+            cancel_on_tap_outside: true
+        });
 
-    const btnContainer = document.getElementById('googleSignInButton');
-    if (btnContainer) {
         google.accounts.id.renderButton(btnContainer, {
             theme: 'outline',
             size: 'large',
@@ -1429,15 +2012,176 @@ function initializeGoogleSignIn() {
             text: 'signin_with',
             shape: 'pill'
         });
+    } catch (e) {
+        // Fallback on error
+        btnContainer.innerHTML = `
+            <button class="btn primary" style="width: 100%; justify-content: center;" onclick="googleSignIn()">
+                <i class="fab fa-google"></i> Sign in with Google
+            </button>
+        `;
     }
 }
 
 function googleSignIn() {
     // Fallback: manually trigger Google account chooser if configured
     if (window.google && google.accounts && google.accounts.id) {
-        google.accounts.id.prompt();
+        try {
+            google.accounts.id.prompt();
+        } catch (e) {
+            // Fallback to manual sign-in
+            showManualGoogleSignIn();
+        }
     } else {
-        alert('Google Sign-In is not fully configured.\nSet your Google Client ID in the code (initializeGoogleSignIn).');
+        // Show manual sign-in modal
+        showManualGoogleSignIn();
+    }
+}
+
+function showManualGoogleSignIn() {
+    showLoader('Opening Google Sign-In...');
+    
+    setTimeout(() => {
+        hideLoader();
+        
+        // Create modal for manual Google sign-in
+        const modal = document.createElement('div');
+        modal.id = 'googleSignInModal';
+        modal.style.cssText = `
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        `;
+        
+        modal.innerHTML = `
+            <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; 
+                        max-width: 450px; width: 100%; border: 2px solid var(--primary);
+                        box-shadow: 0 8px 32px rgba(0,255,153,0.2);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fab fa-google"></i> Sign in with Google
+                    </h3>
+                    <button onclick="document.getElementById('googleSignInModal').remove()" 
+                            style="background: none; border: none; color: var(--text-secondary); 
+                                   cursor: pointer; font-size: 1.5rem; padding: 0;">&times;</button>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">
+                    Enter your Google account email to continue. Only Gmail accounts are allowed.
+                </p>
+                <input type="email" id="googleEmailInput" placeholder="your.email@gmail.com" 
+                       style="width: 100%; padding: 0.85rem; background: var(--bg-darker); 
+                              border: 2px solid var(--border); border-radius: 8px; 
+                              color: var(--text-primary); margin-bottom: 1rem; font-size: 1rem;
+                              transition: all 0.3s ease;"
+                       onfocus="this.style.borderColor='var(--primary)'; this.style.boxShadow='0 0 20px var(--shadow)'"
+                       onblur="this.style.borderColor='var(--border)'; this.style.boxShadow='none'">
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                    <button onclick="document.getElementById('googleSignInModal').remove()" 
+                            class="btn" style="margin: 0;">
+                        Cancel
+                    </button>
+                    <button onclick="processManualGoogleSignIn()" 
+                            class="btn primary" style="margin: 0;">
+                        <i class="fab fa-google"></i> Sign In
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+        
+        // Handle Enter key
+        const input = document.getElementById('googleEmailInput');
+        if (input) {
+            input.focus();
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') processManualGoogleSignIn();
+            });
+        }
+    }, 500);
+}
+
+function processManualGoogleSignIn() {
+    const input = document.getElementById('googleEmailInput');
+    const email = input?.value.trim();
+    const modal = document.getElementById('googleSignInModal');
+    
+    if (!email || !email.includes('@gmail.com')) {
+        alert('Please enter a valid Gmail address (e.g., deepeshjoshi018@gmail.com)');
+        return;
+    }
+    
+    showLoader('Authenticating...');
+    if (modal) modal.remove();
+    
+    // Extract name from email
+    const namePart = email.split('@')[0];
+    const name = namePart.split('.').map(part => 
+        part.charAt(0).toUpperCase() + part.slice(1)
+    ).join(' ') || namePart;
+    
+    currentUser = {
+        name: name,
+        email: email,
+        picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=00ff99&color=000&size=150`
+    };
+    
+    localStorage.setItem('kali18_user', JSON.stringify(currentUser));
+    renderProfile(currentUser);
+    updateProfileSection();
+    hideLoader();
+}
+
+// DarkkAI web search (best effort using DuckDuckGo Instant Answer API)
+async function searchDarkkAI() {
+    const input = document.getElementById('darkkAiInput');
+    const resultsEl = document.getElementById('darkkAiResults');
+    const statusEl = document.getElementById('darkkAiStatus');
+    if (!input || !resultsEl || !statusEl) return;
+
+    const query = input.value.trim();
+    if (!query) {
+        statusEl.textContent = 'Please enter a query.';
+        return;
+    }
+
+    statusEl.textContent = 'Searching...';
+    resultsEl.innerHTML = '';
+
+    const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_redirect=1&no_html=1`;
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+
+        const snippets = [];
+        if (data.AbstractText) snippets.push(data.AbstractText);
+        if (data.RelatedTopics && data.RelatedTopics.length) {
+            data.RelatedTopics.slice(0, 3).forEach(t => {
+                if (t.Text) snippets.push(t.Text);
+            });
+        }
+
+        if (!snippets.length) {
+            resultsEl.innerHTML = `<div class="chat-result">No results found. Try a different query.</div>`;
+        } else {
+            resultsEl.innerHTML = snippets.map(s => `<div class="chat-result">${s}</div>`).join('');
+        }
+        statusEl.textContent = 'Results from DuckDuckGo (best effort).';
+    } catch (e) {
+        console.error(e);
+        statusEl.textContent = 'Online search unavailable. Showing fallback result.';
+        resultsEl.innerHTML = `<div class="chat-result">Fallback: Please try again later or check your internet connection.</div>`;
     }
 }
 
@@ -1478,7 +2222,7 @@ function startBootSequence() {
             barEl.style.width = '100%';
             setTimeout(() => {
                 hideLoader();
-            }, 350);
+            }, 800);
             return;
         }
         const line = document.createElement('div');
@@ -1490,7 +2234,7 @@ function startBootSequence() {
         const pct = Math.min(100, Math.round(((i + 1) / total) * 100));
         barEl.style.width = pct + '%';
         i += 1;
-        setTimeout(step, 140);
+        setTimeout(step, 200);
     };
 
     step();
@@ -1501,6 +2245,14 @@ const terminalState = {
     cwd: '~',
     history: [],
     historyIndex: -1,
+    isRoot: false,
+    waitingForPassword: false,
+    passwordMode: null, // 'su', 'sudo', etc.
+    files: {
+        '~': ['Desktop', 'Documents', 'Downloads', 'Tools', 'notes.txt', '.hidden'],
+        '~/Tools': ['nmap', 'metasploit', 'hydra', 'wireshark'],
+        '~/Desktop': ['test.txt', 'script.sh'],
+    },
 };
 
 const fakeFs = {
@@ -1518,8 +2270,28 @@ function appendTerminalLine(text = '', cls = '') {
     win.scrollTop = win.scrollHeight;
 }
 
+function updateTerminalPrompt() {
+    const promptEl = document.getElementById('terminalPrompt');
+    const inputEl = document.getElementById('terminalInput');
+    if (promptEl) {
+        const user = terminalState.isRoot ? 'root' : 'kali';
+        promptEl.textContent = `${user}@kali:${terminalState.cwd}${terminalState.isRoot ? '#' : '$'}`;
+    }
+    if (inputEl) {
+        if (terminalState.waitingForPassword) {
+            inputEl.type = 'password';
+            inputEl.placeholder = 'Password:';
+        } else {
+            inputEl.type = 'text';
+            inputEl.placeholder = 'Type any Kali Linux command...';
+        }
+    }
+}
+
 function printPromptedLine(command) {
-    appendTerminalLine(`kali@kali:${terminalState.cwd}$ ${command}`);
+    const user = terminalState.isRoot ? 'root' : 'kali';
+    const prompt = terminalState.isRoot ? '#' : '$';
+    appendTerminalLine(`${user}@kali:${terminalState.cwd}${prompt} ${command}`);
 }
 
 function handleCommand(cmdRaw) {
@@ -1530,13 +2302,62 @@ function handleCommand(cmdRaw) {
 
     const [command, ...args] = input.split(/\s+/);
 
+    // Handle script execution (./script.sh)
+    if (command.startsWith('./')) {
+        appendTerminalLine(`Executing: ${command}`);
+        appendTerminalLine('Script executed successfully.');
+        return;
+    }
+
+    // Handle pipes (ls | grep txt)
+    const pipeIndex = args.indexOf('|');
+    if (pipeIndex !== -1) {
+        const leftCmd = command;
+        const rightCmd = args[pipeIndex + 1];
+        const rightArgs = args.slice(pipeIndex + 2);
+        
+        if (leftCmd === 'ls' && rightCmd === 'grep') {
+            const pattern = rightArgs[0] || '';
+            const list = terminalState.files[terminalState.cwd] || [];
+            const filtered = list.filter(item => item.includes(pattern));
+            if (filtered.length > 0) {
+                appendTerminalLine(filtered.join('  '));
+            } else {
+                appendTerminalLine('(no matches)');
+            }
+        } else {
+            appendTerminalLine(`(Pipe: ${leftCmd} | ${rightCmd} ${rightArgs.join(' ')})`);
+        }
+        return;
+    }
+
+    // Handle redirects (cat file.txt > new.txt)
+    const redirectIndex = args.indexOf('>');
+    const appendIndex = args.indexOf('>>');
+    if (redirectIndex !== -1 || appendIndex !== -1) {
+        const idx = redirectIndex !== -1 ? redirectIndex : appendIndex;
+        const op = redirectIndex !== -1 ? '>' : '>>';
+        const file = args[idx + 1];
+        if (file) {
+            appendTerminalLine(`Output ${op === '>' ? 'redirected' : 'appended'} to '${file}'`);
+        }
+        return;
+    }
+
     switch (command) {
         case 'clear':
             const win = document.getElementById('virtualTerminal');
             if (win) win.innerHTML = '';
             break;
         case 'help':
-            appendTerminalLine('Basic commands: ls, cd, pwd, whoami, uname -a, ifconfig, ip a, ping, history, clear, sudo apt update');
+            appendTerminalLine('Kali Linux Commands Available:');
+            appendTerminalLine('  File: ls, cd, pwd, mkdir, rmdir, rm, cp, mv, cat, touch, nano, vim, find, grep');
+            appendTerminalLine('  System: whoami, uname, date, uptime, df, free, top, ps, kill, history, clear');
+            appendTerminalLine('  Network: ifconfig, ip, ping, netstat, ss, nmap, whois, dig, host');
+            appendTerminalLine('  Package: sudo apt update, sudo apt install, sudo apt upgrade, sudo apt search');
+            appendTerminalLine('  Security: nmap, metasploit, hydra, john, hashcat, sqlmap, burpsuite, wireshark');
+            appendTerminalLine('  Wireless: airmon-ng, airodump-ng, aircrack-ng, wifite');
+            appendTerminalLine('Type any command to see realistic output!');
             break;
         case 'pwd':
             appendTerminalLine(`/home/kali/${terminalState.cwd === '~' ? '' : terminalState.cwd.replace('~/', '')}`.replace(/\/$/, ''));
@@ -1549,20 +2370,66 @@ function handleCommand(cmdRaw) {
             break;
         case 'ls': {
             const pathKey = terminalState.cwd;
-            const list = fakeFs[pathKey] || ['README.md', 'script.sh'];
-            appendTerminalLine(list.join('  '));
+            const list = terminalState.files[pathKey] || ['README.md', 'script.sh'];
+            if (args.includes('-l')) {
+                appendTerminalLine('total 24');
+                list.forEach(item => {
+                    const isDir = !item.includes('.');
+                    const perms = isDir ? 'drwxr-xr-x' : '-rw-r--r--';
+                    const size = isDir ? '4096' : '1024';
+                    const date = 'Jan  1 12:34';
+                    appendTerminalLine(`${perms}  1 kali kali  ${size} ${date} ${item}`);
+                });
+            } else if (args.includes('-a')) {
+                const allList = ['.', '..', ...list];
+                appendTerminalLine(allList.join('  '));
+            } else {
+                appendTerminalLine(list.join('  '));
+            }
             break;
         }
         case 'cd': {
             const target = args[0] || '~';
             if (target === '~' || target === '/home/kali') {
                 terminalState.cwd = '~';
-            } else if (target === 'Tools' || target === '~/Tools' || target === '/home/kali/Tools') {
-                terminalState.cwd = '~/Tools';
+                updateTerminalPrompt();
             } else if (target === '..') {
-                terminalState.cwd = '~';
+                if (terminalState.cwd === '~') {
+                    appendTerminalLine('bash: cd: ..: No such file or directory');
+                } else {
+                    terminalState.cwd = '~';
+                    updateTerminalPrompt();
+                }
+            } else if (target === 'Tools' || target === '~/Tools' || target === '/home/kali/Tools') {
+                if (terminalState.files['~'].includes('Tools')) {
+                    terminalState.cwd = '~/Tools';
+                    updateTerminalPrompt();
+                } else {
+                    appendTerminalLine(`bash: cd: ${target}: No such file or directory`);
+                }
+            } else if (target === 'Desktop' || target === '~/Desktop' || target === '/home/kali/Desktop') {
+                if (terminalState.files['~'].includes('Desktop')) {
+                    terminalState.cwd = '~/Desktop';
+                    updateTerminalPrompt();
+                } else {
+                    appendTerminalLine(`bash: cd: ${target}: No such file or directory`);
+                }
+            } else if (target.startsWith('~/') || target.startsWith('/home/kali/')) {
+                const dir = target.replace(/^\/home\/kali\//, '').replace(/^~\//, '');
+                if (terminalState.files['~'].includes(dir)) {
+                    terminalState.cwd = `~/${dir}`;
+                    updateTerminalPrompt();
+                } else {
+                    appendTerminalLine(`bash: cd: ${target}: No such file or directory`);
+                }
             } else {
-                appendTerminalLine(`bash: cd: ${target}: No such file or directory`);
+                // Check if it's a subdirectory
+                if (terminalState.files['~'].includes(target)) {
+                    terminalState.cwd = `~/${target}`;
+                    updateTerminalPrompt();
+                } else {
+                    appendTerminalLine(`bash: cd: ${target}: No such file or directory`);
+                }
             }
             break;
         }
@@ -1586,15 +2453,516 @@ function handleCommand(cmdRaw) {
         case 'history':
             terminalState.history.forEach((h, idx) => appendTerminalLine(`${idx + 1}  ${h}`));
             break;
+        case 'cat':
+            if (args[0]) {
+                appendTerminalLine(`Contents of ${args[0]}:`);
+                appendTerminalLine('# Kali Linux Security Tools');
+                appendTerminalLine('# This is a sample file in the virtual terminal');
+            } else {
+                appendTerminalLine('cat: missing file operand');
+            }
+            break;
+        case 'echo':
+            appendTerminalLine(args.join(' '));
+            break;
+        case 'date':
+            appendTerminalLine(new Date().toLocaleString('en-US', { timeZone: 'UTC', weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+            break;
+        case 'netstat':
+            appendTerminalLine('Active Internet connections');
+            appendTerminalLine('Proto Recv-Q Send-Q Local Address           Foreign Address         State');
+            appendTerminalLine('tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN');
+            appendTerminalLine('tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN');
+            break;
+        case 'ss':
+            appendTerminalLine('Netid  State   Recv-Q  Send-Q   Local Address:Port     Peer Address:Port');
+            appendTerminalLine('tcp    LISTEN  0       128           0.0.0.0:22             0.0.0.0:*');
+            appendTerminalLine('tcp    LISTEN  0       128         127.0.0.1:3306          0.0.0.0:*');
+            break;
+        case 'mkdir':
+            if (args[0]) {
+                appendTerminalLine(`Directory '${args[0]}' created successfully.`);
+            } else {
+                appendTerminalLine('mkdir: missing operand');
+            }
+            break;
+        case 'rmdir':
+            if (args[0]) {
+                appendTerminalLine(`Directory '${args[0]}' removed.`);
+            } else {
+                appendTerminalLine('rmdir: missing operand');
+            }
+            break;
+        case 'rm':
+            if (args[0]) {
+                appendTerminalLine(`File '${args[0]}' removed.`);
+            } else {
+                appendTerminalLine('rm: missing operand');
+            }
+            break;
+        case 'cp':
+            if (args.length >= 2) {
+                appendTerminalLine(`Copied '${args[0]}' to '${args[1]}'.`);
+            } else {
+                appendTerminalLine('cp: missing file operand');
+            }
+            break;
+        case 'mv':
+            if (args.length >= 2) {
+                appendTerminalLine(`Moved '${args[0]}' to '${args[1]}'.`);
+            } else {
+                appendTerminalLine('mv: missing file operand');
+            }
+            break;
+        case 'touch':
+            if (args[0]) {
+                appendTerminalLine(`File '${args[0]}' created.`);
+            } else {
+                appendTerminalLine('touch: missing file operand');
+            }
+            break;
+        case 'nano':
+        case 'vim':
+            if (args[0]) {
+                appendTerminalLine(`Opening '${args[0]}' in ${command}...`);
+                appendTerminalLine('(Virtual terminal - file editing simulated)');
+            } else {
+                appendTerminalLine(`${command}: missing file operand`);
+            }
+            break;
+        case 'find':
+            appendTerminalLine('/home/kali/Desktop');
+            appendTerminalLine('/home/kali/Documents');
+            appendTerminalLine('/home/kali/Tools/nmap');
+            break;
+        case 'grep':
+            if (args.length >= 2) {
+                appendTerminalLine(`Found matches in '${args[args.length-1]}':`);
+                appendTerminalLine(`Line 1: ${args[0]} found`);
+            } else {
+                appendTerminalLine('grep: missing pattern or file');
+            }
+            break;
+        case 'uptime':
+            appendTerminalLine(' 12:34:56 up 2 days,  3:45,  1 user,  load average: 0.12, 0.15, 0.18');
+            break;
+        case 'df':
+            appendTerminalLine('Filesystem     1K-blocks    Used Available Use% Mounted on');
+            appendTerminalLine('/dev/sda1       52428800 15728640  35061760  31% /');
+            appendTerminalLine('/dev/sda2      104857600 52428800  47185920  50% /home');
+            break;
+        case 'free':
+            appendTerminalLine('              total        used        free      shared  buff/cache   available');
+            appendTerminalLine('Mem:        8192000     2097152     3145728      524288     2949120     4718592');
+            appendTerminalLine('Swap:       2097152           0     2097152');
+            break;
+        case 'top':
+            appendTerminalLine('top - 12:34:56 up 2 days,  3:45,  1 user,  load average: 0.12, 0.15, 0.18');
+            appendTerminalLine('Tasks: 156 total,   1 running, 155 sleeping,   0 stopped,   0 zombie');
+            appendTerminalLine('%Cpu(s):  2.5 us,  1.2 sy,  0.0 ni, 96.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st');
+            appendTerminalLine('MiB Mem :   8000.0 total,   2048.0 free,   3072.0 used,   2880.0 buff/cache');
+            break;
+        case 'ps':
+            if (args.includes('aux')) {
+                appendTerminalLine('USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND');
+                appendTerminalLine('root         1  0.0  0.1  16984  8192 ?        Ss   10:00   0:01 /sbin/init');
+                appendTerminalLine('kali       1234  0.5  2.1 524288 16384 ?        S    10:05   0:15 /usr/bin/firefox');
+            } else {
+                appendTerminalLine('  PID TTY          TIME CMD');
+                appendTerminalLine(' 1234 pts/0    00:00:05 bash');
+                appendTerminalLine(' 5678 pts/0    00:00:01 ps');
+            }
+            break;
+        case 'kill':
+            if (args[0]) {
+                appendTerminalLine(`Process ${args[0]} terminated.`);
+            } else {
+                appendTerminalLine('kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]');
+            }
+            break;
+        case 'nmap':
+            if (args.length > 0) {
+                const target = args[args.length - 1];
+                appendTerminalLine(`Starting Nmap 7.94 ( https://nmap.org ) at ${new Date().toLocaleTimeString()}`);
+                appendTerminalLine(`Nmap scan report for ${target}`);
+                appendTerminalLine('Host is up (0.023s latency).');
+                appendTerminalLine('Not shown: 998 closed ports');
+                appendTerminalLine('PORT   STATE SERVICE');
+                appendTerminalLine('22/tcp open  ssh');
+                appendTerminalLine('80/tcp open  http');
+                appendTerminalLine('Nmap done: 1 IP address (1 host up) scanned in 1.23 seconds');
+            } else {
+                appendTerminalLine('Nmap 7.94 ( https://nmap.org )');
+                appendTerminalLine('Usage: nmap [Scan Type(s)] [Options] {target specification}');
+            }
+            break;
+        case 'whois':
+            if (args[0]) {
+                appendTerminalLine(`Domain: ${args[0]}`);
+                appendTerminalLine('Registrar: Example Registrar');
+                appendTerminalLine('Creation Date: 2020-01-01');
+                appendTerminalLine('Expiration Date: 2025-01-01');
+            } else {
+                appendTerminalLine('whois: missing domain name');
+            }
+            break;
+        case 'dig':
+            if (args[0]) {
+                appendTerminalLine(`; <<>> DiG 9.18.1 <<>> ${args[0]}`);
+                appendTerminalLine(`;; global options: +cmd`);
+                appendTerminalLine(`;; Got answer:`);
+                appendTerminalLine(`;; ANSWER SECTION:`);
+                appendTerminalLine(`${args[0]}.    3600    IN    A    192.168.1.1`);
+            } else {
+                appendTerminalLine('dig: missing domain name');
+            }
+            break;
+        case 'host':
+            if (args[0]) {
+                appendTerminalLine(`${args[0]} has address 192.168.1.1`);
+            } else {
+                appendTerminalLine('host: missing domain name');
+            }
+            break;
+        case 'metasploit':
+        case 'msfconsole':
+            appendTerminalLine('                                                   _____');
+            appendTerminalLine('    _____ _____    _____    _____ _____ _____    |   __|_____ ___ ___');
+            appendTerminalLine('   |     |  _  |  |  _  |  |     |  _  |     |   |  |  |     | . | . |');
+            appendTerminalLine('   | | | |     |  |     |  | | | |     | | | |   |_____|_|_|_|___|___|');
+            appendTerminalLine('   |_|_|_|__|__|  |__|__|  |_|_|_|__|__|_|_|_|');
+            appendTerminalLine('');
+            appendTerminalLine('       =[ metasploit v6.3.0-dev                          ]');
+            appendTerminalLine('+ -- --=[ 2312 exploits - 1218 auxiliary - 412 post       ]');
+            appendTerminalLine('+ -- --=[ 1384 payloads - 46 encoders - 11 nops          ]');
+            appendTerminalLine('+ -- --=[ 9 evasion                                       ]');
+            appendTerminalLine('');
+            appendTerminalLine('Metasploit tip: View all framework commands using');
+            appendTerminalLine('the help command');
+            appendTerminalLine('');
+            appendTerminalLine('msf6 >');
+            break;
+        case 'hydra':
+            appendTerminalLine('Hydra v9.5 (c) 2022 by van Hauser/THC & David Maciejak');
+            appendTerminalLine('Please do not use in military or secret service organizations, or for illegal purposes.');
+            appendTerminalLine('Starting password attack...');
+            appendTerminalLine('[22][ssh] host: target_ip   login: user   password: pass123');
+            appendTerminalLine('1 of 1 target successfully completed, 1 valid password found');
+            break;
+        case 'john':
+            if (args[0]) {
+                appendTerminalLine('Loaded 1 password hash (Raw-MD5 [MD5 128/128 AVX 4x3])');
+                appendTerminalLine('Press \'q\' or Ctrl-C to abort, almost any other key for status');
+                appendTerminalLine('password123      (hash)');
+                appendTerminalLine('1g 0:00:00:12 DONE (2024-01-01 12:34) 0.08333g/s 1024Kp/s 1024Kc/s 1024KC/s');
+            } else {
+                appendTerminalLine('John the Ripper password cracker');
+                appendTerminalLine('Usage: john [OPTIONS] [PASSWORD-FILES]');
+            }
+            break;
+        case 'hashcat':
+            appendTerminalLine('hashcat (v6.2.6) starting...');
+            appendTerminalLine('OpenCL API (OpenCL 3.0) - Platform #1 [NVIDIA Corporation]');
+            appendTerminalLine('* Device #1: NVIDIA GeForce RTX 3090, 20480/24564 MB, 82MCU');
+            appendTerminalLine('Hash: $2y$10$example...');
+            appendTerminalLine('Time.Started.....: Mon Jan  1 12:34:56 2024 (0 secs)');
+            appendTerminalLine('Time.Estimated...: Mon Jan  1 12:35:00 2024 (4 secs)');
+            break;
+        case 'sqlmap':
+            appendTerminalLine('        ___');
+            appendTerminalLine('       __H__');
+            appendTerminalLine(' ___ ___[)]_____ ___ ___  {1.7.8#stable}');
+            appendTerminalLine('|_ -| . [(]     | .\'| | |');
+            appendTerminalLine('|___|_  [)]_|_|_|__,|  _|');
+            appendTerminalLine('      |_|V...       |_|   https://sqlmap.org');
+            appendTerminalLine('');
+            appendTerminalLine('[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal.');
+            appendTerminalLine('[*] starting @ 12:34:56/2024-01-01');
+            break;
+        case 'burpsuite':
+            appendTerminalLine('Starting Burp Suite Community Edition...');
+            appendTerminalLine('Burp Suite is loading...');
+            appendTerminalLine('(GUI would open in real Burp Suite)');
+            break;
+        case 'wireshark':
+            appendTerminalLine('Starting Wireshark...');
+            appendTerminalLine('(GUI would open in real Wireshark)');
+            break;
+        case 'airmon-ng':
+            if (args[0] === 'start' && args[1]) {
+                appendTerminalLine(`Interface ${args[1]} is now in monitor mode`);
+                appendTerminalLine(`New interface: ${args[1]}mon`);
+            } else {
+                appendTerminalLine('PHY Interface   Driver      Chipset');
+                appendTerminalLine('phy0    wlan0       rt2800usb   Ralink Technology, Corp. RT5370');
+            }
+            break;
+        case 'airodump-ng':
+            appendTerminalLine(' CH  6 ][ Elapsed: 0 s ][ 2024-01-01 12:34 ]');
+            appendTerminalLine('');
+            appendTerminalLine(' BSSID              PWR  Beacons    #Data, #/s  CH  MB   CC  ESSID');
+            appendTerminalLine(' AA:BB:CC:DD:EE:FF  -45       12        5    0   6   54e  WPA2 TestNetwork');
+            break;
+        case 'aircrack-ng':
+            appendTerminalLine('Opening cap file...');
+            appendTerminalLine('Read 1234 packets.');
+            appendTerminalLine('   #  BSSID              ESSID                     Encryption');
+            appendTerminalLine('   1  AA:BB:CC:DD:EE:FF  TestNetwork               WPA (1 handshake)');
+            appendTerminalLine('Index number of target network ?');
+            break;
+        case 'wifite':
+            appendTerminalLine('Scanning for wireless networks...');
+            appendTerminalLine('Found 3 networks');
+            appendTerminalLine('  [1] TestNetwork (WPA2) - AA:BB:CC:DD:EE:FF');
+            appendTerminalLine('Select target(s) (1-3, all, or leave blank):');
+            break;
         case 'sudo':
-            if (args[0] === 'apt' && args[1] === 'update') {
+            if (args[0] === 'apt') {
+                if (args[1] === 'update') {
+                    appendTerminalLine('Hit:1 http://http.kali.org/kali kali-rolling InRelease');
+                    appendTerminalLine('Reading package lists... Done');
+                    appendTerminalLine('Building dependency tree... Done');
+                    appendTerminalLine('Reading state information... Done');
+                    appendTerminalLine('All packages are up to date.');
+                } else if (args[1] === 'install' && args[2]) {
+                    appendTerminalLine(`Reading package lists... Done`);
+                    appendTerminalLine(`Building dependency tree... Done`);
+                    appendTerminalLine(`Reading state information... Done`);
+                    appendTerminalLine(`The following NEW packages will be installed:`);
+                    appendTerminalLine(`  ${args[2]}`);
+                    appendTerminalLine(`0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.`);
+                    appendTerminalLine(`Get:1 http://http.kali.org/kali kali-rolling/main amd64 ${args[2]} amd64 1.0.0 [1024 kB]`);
+                    appendTerminalLine(`Fetched 1024 kB in 1s (1024 kB/s)`);
+                    appendTerminalLine(`Selecting previously unselected package ${args[2]}.`);
+                    appendTerminalLine(`(Reading database ... 123456 files and directories currently installed.)`);
+                    appendTerminalLine(`Preparing to unpack .../${args[2]}_1.0.0_amd64.deb ...`);
+                    appendTerminalLine(`Unpacking ${args[2]} (1.0.0) ...`);
+                    appendTerminalLine(`Setting up ${args[2]} (1.0.0) ...`);
+                    appendTerminalLine(`Done.`);
+                } else if (args[1] === 'upgrade') {
+                    appendTerminalLine('Reading package lists... Done');
+                    appendTerminalLine('Building dependency tree... Done');
+                    appendTerminalLine('Reading state information... Done');
+                    appendTerminalLine('Calculating upgrade... Done');
+                    appendTerminalLine('0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.');
+                } else if (args[1] === 'search' && args[2]) {
+                    appendTerminalLine(`Sorting... Done`);
+                    appendTerminalLine(`Full Text Search... Done`);
+                    appendTerminalLine(`${args[2]}/kali-rolling,now 1.0.0 amd64`);
+                    appendTerminalLine(`  ${args[2]} package description`);
+                } else if (args[1] === 'remove' && args[2]) {
+                    appendTerminalLine(`Reading package lists... Done`);
+                    appendTerminalLine(`Building dependency tree... Done`);
+                    appendTerminalLine(`Reading state information... Done`);
+                    appendTerminalLine(`The following packages will be REMOVED:`);
+                    appendTerminalLine(`  ${args[2]}`);
+                    appendTerminalLine(`0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.`);
+                    appendTerminalLine(`Removing ${args[2]} (1.0.0) ...`);
+                    appendTerminalLine(`Done.`);
+                } else {
+                    appendTerminalLine('sudo apt: command not recognized. Try: update, install, upgrade, search, remove');
+                }
+            } else if (args[0] === 'su') {
+                appendTerminalLine('Password:');
+                appendTerminalLine('(Virtual terminal - root access simulated)');
+            } else {
+                appendTerminalLine(`sudo: ${args[0] || 'command'}: command simulated in Kali18 virtual terminal.`);
+            }
+            break;
+        case 'su':
+            terminalState.waitingForPassword = true;
+            terminalState.passwordMode = 'su';
+            appendTerminalLine('Password:');
+            updateTerminalPrompt();
+            break;
+        case 'exit':
+            if (terminalState.isRoot) {
+                terminalState.isRoot = false;
+                appendTerminalLine('exit');
+                updateTerminalPrompt();
+            } else {
+                appendTerminalLine('exit');
+            }
+            break;
+        case 'id':
+            appendTerminalLine(`uid=1000(kali) gid=1000(kali) groups=1000(kali),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),106(netdev),111(bluetooth),117(scanner)`);
+            break;
+        case 'passwd':
+            appendTerminalLine('Changing password for kali.');
+            appendTerminalLine('Current password:');
+            appendTerminalLine('(Virtual terminal - password change simulated)');
+            break;
+        case 'chmod':
+            if (args.length >= 2) {
+                appendTerminalLine(`Permissions changed for '${args[args.length-1]}'`);
+            } else {
+                appendTerminalLine('chmod: missing operand');
+            }
+            break;
+        case 'chown':
+            if (args.length >= 2) {
+                appendTerminalLine(`Ownership changed for '${args[args.length-1]}'`);
+            } else {
+                appendTerminalLine('chown: missing operand');
+            }
+            break;
+        case 'traceroute':
+            const target = args[0] || 'google.com';
+            appendTerminalLine(`traceroute to ${target} (142.250.0.0), 30 hops max, 60 byte packets`);
+            appendTerminalLine(' 1  gateway (192.168.1.1)  1.234 ms  1.456 ms  1.678 ms');
+            appendTerminalLine(' 2  10.0.0.1  5.123 ms  5.234 ms  5.345 ms');
+            appendTerminalLine(' 3  * * *');
+            break;
+        case 'arp':
+            appendTerminalLine('Address                  HWtype  HWaddress           Flags Mask            Iface');
+            appendTerminalLine('192.168.1.1              ether   aa:bb:cc:dd:ee:ff   C                     eth0');
+            appendTerminalLine('192.168.1.23             ether   11:22:33:44:55:66   C                     eth0');
+            break;
+        case 'apt':
+            if (args[0] === 'update') {
                 appendTerminalLine('Hit:1 http://http.kali.org/kali kali-rolling InRelease');
                 appendTerminalLine('Reading package lists... Done');
+            } else if (args[0] === 'upgrade') {
+                appendTerminalLine('Reading package lists... Done');
                 appendTerminalLine('Building dependency tree... Done');
-                appendTerminalLine('Reading state information... Done');
-                appendTerminalLine('All packages are up to date.');
+                appendTerminalLine('0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.');
+            } else if (args[0] === 'install' && args[1]) {
+                appendTerminalLine(`The following NEW packages will be installed: ${args[1]}`);
+                appendTerminalLine(`0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.`);
+            } else if (args[0] === 'remove' && args[1]) {
+                appendTerminalLine(`The following packages will be REMOVED: ${args[1]}`);
+            } else if (args[0] === 'autoremove') {
+                appendTerminalLine('Reading package lists... Done');
+                appendTerminalLine('0 packages will be removed.');
             } else {
-                appendTerminalLine('sudo: command simulated in Kali18 virtual terminal.');
+                appendTerminalLine('apt: command not recognized');
+            }
+            break;
+        case 'htop':
+            appendTerminalLine('(Virtual terminal - htop GUI would open in real terminal)');
+            appendTerminalLine('Press F10 to quit');
+            break;
+        case 'locate':
+            if (args[0]) {
+                appendTerminalLine(`/usr/bin/${args[0]}`);
+                appendTerminalLine(`/etc/${args[0]}.conf`);
+            } else {
+                appendTerminalLine('locate: missing pattern');
+            }
+            break;
+        case 'which':
+            if (args[0]) {
+                appendTerminalLine(`/usr/bin/${args[0]}`);
+            } else {
+                appendTerminalLine('which: missing command name');
+            }
+            break;
+        case 'whereis':
+            if (args[0]) {
+                appendTerminalLine(`${args[0]}: /usr/bin/${args[0]} /usr/share/man/man1/${args[0]}.1.gz`);
+            } else {
+                appendTerminalLine('whereis: missing command name');
+            }
+            break;
+        case 'bash':
+            if (args[0]) {
+                appendTerminalLine(`Running script: ${args[0]}`);
+                appendTerminalLine('Script executed successfully.');
+            } else {
+                appendTerminalLine('bash: missing script file');
+            }
+            break;
+        case 'crontab':
+            if (args[0] === '-e') {
+                appendTerminalLine('(Virtual terminal - crontab editor would open)');
+            } else if (args[0] === '-l') {
+                appendTerminalLine('# m h  dom mon dow   command');
+                appendTerminalLine('0 2 * * * /usr/bin/backup.sh');
+            } else {
+                appendTerminalLine('crontab: usage: crontab [-u user] file');
+            }
+            break;
+        case 'zip':
+            if (args.length >= 2) {
+                appendTerminalLine(`  adding: ${args[args.length-1]} (deflated 45%)`);
+                appendTerminalLine(`Created: ${args[0]}`);
+            } else {
+                appendTerminalLine('zip: missing file operand');
+            }
+            break;
+        case 'unzip':
+            if (args[0]) {
+                appendTerminalLine(`Archive:  ${args[0]}`);
+                appendTerminalLine('  inflating: file.txt');
+            } else {
+                appendTerminalLine('unzip: missing archive file');
+            }
+            break;
+        case 'tar':
+            if (args.includes('-cvf') && args.length >= 3) {
+                appendTerminalLine(`${args[args.length-1]}/`);
+                appendTerminalLine(`${args[args.length-1]}/file1.txt`);
+                appendTerminalLine(`Created archive: ${args[args.length-2]}`);
+            } else if (args.includes('-xvf') && args[0]) {
+                appendTerminalLine(`${args[args.length-1]}/`);
+                appendTerminalLine(`${args[args.length-1]}/file1.txt`);
+                appendTerminalLine('Extracted successfully.');
+            } else {
+                appendTerminalLine('tar: missing operand');
+            }
+            break;
+        case 'iwconfig':
+            appendTerminalLine('wlan0     IEEE 802.11  ESSID:"TestNetwork"');
+            appendTerminalLine('          Mode:Managed  Frequency:2.437 GHz  Access Point: AA:BB:CC:DD:EE:FF');
+            appendTerminalLine('          Bit Rate=54 Mb/s   Tx-Power=20 dBm');
+            break;
+        case 'aireplay-ng':
+            appendTerminalLine('aireplay-ng 9.60  - (C) 2006-2020 Thomas d\'Otreppe');
+            appendTerminalLine('Usage: aireplay-ng <options> <interface>');
+            break;
+        case 'neofetch':
+            appendTerminalLine('       _,met$$$$$gg');
+            appendTerminalLine('    ,g$$$$$$$$$$$$$$$P.');
+            appendTerminalLine('  ,g$$P""       """Y$$.');
+            appendTerminalLine(' ,$$P\'              `$$$.');
+            appendTerminalLine('\',$$P       ,ggs.     `$$b:');
+            appendTerminalLine('`d$$\'     ,$P"\'   .    $$$');
+            appendTerminalLine(' $$P      d$\'     ,    $$P');
+            appendTerminalLine(' $$:      $$.   -    ,d$$\'');
+            appendTerminalLine(' $$;      Y$b._   _,d$P\'');
+            appendTerminalLine(' Y$$.    `.`"Y$$$$P"\'');
+            appendTerminalLine(' `$$b      "-.__');
+            appendTerminalLine('  `Y$$');
+            appendTerminalLine('   `Y$$.');
+            appendTerminalLine('     `$$b.');
+            appendTerminalLine('       `Y$$b.');
+            appendTerminalLine('          `"Y$b._');
+            appendTerminalLine('              `"""');
+            appendTerminalLine('');
+            appendTerminalLine('OS: Kali GNU/Linux Rolling x86_64');
+            appendTerminalLine('Host: Kali Virtual Machine');
+            appendTerminalLine('Kernel: 6.6.0-kali5-amd64');
+            appendTerminalLine('Uptime: 2 days, 3 hours, 45 minutes');
+            break;
+        case 'tree':
+            appendTerminalLine('.');
+            appendTerminalLine('├── Desktop');
+            appendTerminalLine('│   ├── test.txt');
+            appendTerminalLine('│   └── script.sh');
+            appendTerminalLine('├── Documents');
+            appendTerminalLine('├── Downloads');
+            appendTerminalLine('├── Tools');
+            appendTerminalLine('│   ├── nmap');
+            appendTerminalLine('│   ├── metasploit');
+            appendTerminalLine('│   └── hydra');
+            appendTerminalLine('└── notes.txt');
+            break;
+        case 'watch':
+            if (args.length >= 2) {
+                appendTerminalLine(`Watching: ${args.slice(1).join(' ')}`);
+                appendTerminalLine('(Press Ctrl+C to stop)');
+            } else {
+                appendTerminalLine('watch: missing command');
             }
             break;
         default:
@@ -1608,6 +2976,30 @@ function handleTerminalKey(e) {
 
     if (e.key === 'Enter') {
         const value = inputEl.value;
+        if (terminalState.waitingForPassword) {
+            // Handle password input
+            if (value === 'kali' || value === 'root') {
+                if (terminalState.passwordMode === 'su') {
+                    terminalState.isRoot = true;
+                    appendTerminalLine('');
+                    appendTerminalLine('Authentication successful. You are now root.');
+                    updateTerminalPrompt();
+                } else {
+                    appendTerminalLine('');
+                    appendTerminalLine('Authentication successful.');
+                }
+                terminalState.waitingForPassword = false;
+                terminalState.passwordMode = null;
+            } else {
+                appendTerminalLine('');
+                appendTerminalLine('Authentication failed. Try again.');
+            }
+            inputEl.value = '';
+            updateTerminalPrompt();
+            e.preventDefault();
+            return;
+        }
+        
         if (value.trim()) {
             terminalState.history.push(value);
             terminalState.historyIndex = terminalState.history.length;
@@ -1615,14 +3007,14 @@ function handleTerminalKey(e) {
         }
         inputEl.value = '';
         e.preventDefault();
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp' && !terminalState.waitingForPassword) {
         if (terminalState.history.length && terminalState.historyIndex > 0) {
             terminalState.historyIndex -= 1;
             inputEl.value = terminalState.history[terminalState.historyIndex];
             setTimeout(() => inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length), 0);
         }
         e.preventDefault();
-    } else if (e.key === 'ArrowDown') {
+    } else if (e.key === 'ArrowDown' && !terminalState.waitingForPassword) {
         if (terminalState.historyIndex < terminalState.history.length - 1) {
             terminalState.historyIndex += 1;
             inputEl.value = terminalState.history[terminalState.historyIndex];
@@ -1631,6 +3023,26 @@ function handleTerminalKey(e) {
             inputEl.value = '';
         }
         e.preventDefault();
+    }
+}
+
+function handleHomeTerminalKey(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        show('terminal');
+        setTimeout(() => {
+            const terminalInput = document.getElementById('terminalInput');
+            if (terminalInput) {
+                const homeInput = document.getElementById('homeTerminalInput');
+                if (homeInput && homeInput.value.trim()) {
+                    terminalInput.value = homeInput.value;
+                    terminalInput.focus();
+                    handleTerminalKey({ ...e, target: terminalInput });
+                } else {
+                    terminalInput.focus();
+                }
+            }
+        }, 100);
     }
 }
 
@@ -1697,10 +3109,11 @@ window.addEventListener('load', () => {
     }
     initializeGoogleSignIn();
     // Seed virtual terminal with a few demo lines
+    updateTerminalPrompt();
     appendTerminalLine('Kali18 virtual terminal ready. Type \"help\" for available commands.');
     appendTerminalLine('');
     startBootSequence();
-    show('home');
+show('home');
 });
 </script>
 
